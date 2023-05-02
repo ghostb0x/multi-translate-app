@@ -13,7 +13,7 @@ In the project directory, you can run:
 
 ### `npm run new-component ${YourComponentName}`
 
-Runs the new-component script to create a folder with the component name under src, as well as includes starting index.js for export and componentName.js files
+Runs the new-component script to create a folder with the component name under src, as well as includes starting index.js for export and componentName.js files. This is part of Josh's opinionated file structuring 
 
 ### `npm start`
 
