@@ -1,10 +1,7 @@
-import ComponentBar from "../ComponentBar"
-
+import React from 'react';
 
 function App() {
-  return (
-    <ComponentBar />
-  );
+  return <div>Put app here</div>;
 }
 
 export default App;

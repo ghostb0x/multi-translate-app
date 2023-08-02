@@ -7,11 +7,18 @@ It was then updated to include an updated package.json file which includes the s
 
 And initializes the src folder and starting files to align with that structure.
 
+Additional starter files are included:
+- constants.js includes some standardized viewport breakpoints, colors, and font families
+    - local font files are included as well - these and the default colors were taken from a previous project. Replace these as needed
+- starter files for use with styled-components, including a GlobalStyles component that includes meyerweb's CSS Reset styles
+    - note that the GlobalStyles component is imported into index.js below the App component
+
+
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm run new-component ${YourComponentName}`
+### `npm run new-component YourComponentName`
 
 Runs the new-component script to create a folder with the component name under src, as well as includes starting index.js for export and componentName.js files. This is part of Josh's opinionated file structuring 
 
