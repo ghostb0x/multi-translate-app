@@ -7,19 +7,20 @@ function AppProvider( {children} ) {
 
   const [queryText, setQueryText] = React.useState('');
   
-  const newOutput = {
-    id: React.useId(),
-    language: "Select Language",
-    content: "New Translation"
-  }
   
-  const [outputs, setOutputs] = React.useState([newOutput]);
+  const [outputs, setOutputs] = React.useState([]);
 
 
   function addOutput() {
+    const key = crypto.randomUUID();
+
+    const newOutput = {
+      key: key
+    }
+    
     let currentOutputs = [...outputs];
     currentOutputs.push(newOutput)
-    console.log("currentOutputs")
+    console.log(currentOutputs)
     setOutputs(currentOutputs);
   }
 
