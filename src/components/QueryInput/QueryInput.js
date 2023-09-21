@@ -1,15 +1,16 @@
 import React from 'react';
 import { AppContext } from '../AppProvider/AppProvider';
+import styled from 'styled-components';
 
 function QueryInput() {
   const { queryText, setQueryText } = React.useContext(AppContext);
 
   return (
-    <div>
-      <label htmlFor="input">
+    <Wrapper>
+      <Label htmlFor="input">
         Input your Query
-      </label>
-      <textarea
+      </Label>
+      <Input
         id="input"
         value={queryText}
         onChange={(event) => {
@@ -17,8 +18,22 @@ function QueryInput() {
         }}
       />
     
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Label = styled.label`
+
+`;
+
+const Input = styled.textarea`
+  width: 300px;
+  height: 100px;
+`;
 
 export default QueryInput;
