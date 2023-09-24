@@ -4,31 +4,41 @@ import { AppContext } from '../AppProvider/AppProvider';
 import { Cross2Icon } from '@radix-ui/react-icons';
 
 function OutputItem(key) {
-  const { queryText, fetchTranslate, getTranslation } = React.useContext(AppContext);
+  const { fetchTranslate, getTranslation } =
+    React.useContext(AppContext);
 
   const [hidden, setHidden] = React.useState(false);
 
   const [language, setLanguage] = React.useState('');
 
-  const [content, setContent] = React.useState('Run Translate to see output');
+  const [content, setContent] = React.useState(
+    'Run Translate to see output'
+  );
 
   React.useEffect(() => {
-    
-      setContent(getTranslation(queryText, language))
-    }, [fetchTranslate, getTranslation, language, queryText]
-  )
-
-  // setContent should be an API call to the translation service, made only if
-  // hidden === false. This ensures hidden outputs are not sending API calls
-  // some kind of state variable change, imported from the Context Provider, should
-  // trigger the API call to go fetch
+    try {
+      let output;
+      if (language !== '') {
+        output = getTranslation('en', language);
+      }
+      output.then((response) => {
+        const translation =
+          response.data.translations[0].translatedText;
+        setContent(
+          fetchTranslate === 0
+            ? 'Run Translate to see output'
+            : `${translation}`
+        );
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [fetchTranslate]);
 
   const languageSelect = (
     <OutputLanguage
       value={language}
       onChange={(event) => {
-        console.log(queryText);
-        console.log(fetchTranslate);
         setLanguage(event.target.value);
       }}
     >
@@ -83,4 +93,4 @@ const OutputText = styled.p`
   margin-top: 10px;
 `;
 
-export default OutputItem;
+export default React.memo(OutputItem);

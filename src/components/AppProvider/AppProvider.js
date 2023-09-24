@@ -1,6 +1,5 @@
 import React from 'react';
-import { translate } from '@vitalets/google-translate-api';
-
+import axios from 'axios';
 
 export const AppContext = React.createContext();
 
@@ -11,20 +10,29 @@ function AppProvider({ children }) {
 
   const [fetchTranslate, setFetchTranslate] = React.useState(0);
 
+  async function getTranslation(input_lang, output_lang) {
+    const options = {
+      method: 'POST',
+      url: 'https://google-translator9.p.rapidapi.com/v2',
+      headers: {
+        'content-type': 'application/json',
+        'X-RapidAPI-Key':
+          `${RapidAPIKey}`,
+        'X-RapidAPI-Host': 'google-translator9.p.rapidapi.com',
+      },
+      data: {
+        q: queryText,
+        source: input_lang,
+        target: output_lang,
+        format: 'text',
+      },
+    };
 
-  // seems this api call isn't working - need to tinker or just try real api 
-  async function getTranslation(text, language) {
     try {
-
-      const { translatedText } = await translate(text, { to: language });
-      console.log(translatedText);
-      return(translatedText);
-    }
-    catch (e) {
-      console.log(e)
-      // if (e.name === 'TooManyRequestsError') {
-        // retry with another proxy agent
-      // }
+      const response = await axios.request(options);
+      return response.data;
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -37,7 +45,6 @@ function AppProvider({ children }) {
 
     let currentOutputs = [...outputs];
     currentOutputs.push(newOutput);
-    console.log(currentOutputs);
     setOutputs(currentOutputs);
   }
 
