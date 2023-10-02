@@ -6,7 +6,6 @@ function QueryInput() {
   const {
     queryText,
     setQueryText,
-    fetchTranslate,
     setFetchTranslate,
   } = React.useContext(AppContext);
 
@@ -20,8 +19,8 @@ function QueryInput() {
           setQueryText(event.target.value);
         }}
       />
-      <Button onClick={(event) => {
-        setFetchTranslate(fetchTranslate+1)
+      <Button onClick={() => {
+        setFetchTranslate(Math.random())
       }}>Translate This!</Button>
     </Wrapper>
   );

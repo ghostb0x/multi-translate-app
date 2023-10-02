@@ -6,8 +6,6 @@ export const AppContext = React.createContext();
 function AppProvider({ children }) {
   const [queryText, setQueryText] = React.useState('');
 
-  const [outputs, setOutputs] = React.useState([]);
-
   const [fetchTranslate, setFetchTranslate] = React.useState(0);
 
   async function getTranslation(input_lang, output_lang) {
@@ -36,23 +34,9 @@ function AppProvider({ children }) {
     }
   }
 
-  function addOutput() {
-    const key = crypto.randomUUID();
-
-    const newOutput = {
-      key: key,
-    };
-
-    let currentOutputs = [...outputs];
-    currentOutputs.push(newOutput);
-    setOutputs(currentOutputs);
-  }
-
   const providerValues = {
     queryText,
     setQueryText,
-    outputs,
-    addOutput,
     fetchTranslate,
     setFetchTranslate,
     getTranslation,

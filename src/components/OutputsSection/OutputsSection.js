@@ -1,10 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AppContext } from '../AppProvider/AppProvider';
 import OutputItem from '../OutputItem/OutputItem';
 
 function OutputsSection() {
-  const { addOutput, outputs } = React.useContext(AppContext);
+
+  const [outputs, setOutputs] = React.useState([]);
+
+  function addOutput() {
+    const key = crypto.randomUUID();
+
+    const newOutput = {
+      key: key,
+    };
+
+    let currentOutputs = [...outputs];
+    currentOutputs.push(newOutput);
+    setOutputs(currentOutputs);
+  }
 
   return (
     <SectionWrapper>
