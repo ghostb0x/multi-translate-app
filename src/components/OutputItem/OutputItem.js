@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import { AppContext } from '../AppProvider/AppProvider';
 import { Cross2Icon } from '@radix-ui/react-icons';
 
-function OutputItem(key) {
+function OutputItem({ id, removeOutput }) {
+
   const { fetchTranslate, getTranslation } =
     React.useContext(AppContext);
-
-  const [hidden, setHidden] = React.useState(false);
 
   const [language, setLanguage] = React.useState('');
 
@@ -52,8 +51,12 @@ function OutputItem(key) {
   );
 
   const item = (
-    <OutputWrapper key={key}>
-      <CloseButton onClick={() => setHidden(!hidden)}>
+    <OutputWrapper>
+      <CloseButton
+        onClick={() => {
+          removeOutput(id);
+        }}
+      >
         <CloseIcon />
       </CloseButton>
       {languageSelect}
@@ -65,10 +68,10 @@ function OutputItem(key) {
     </OutputWrapper>
   );
 
-  return hidden === false ? item : null;
+  return item;
 }
 
-const OutputWrapper = styled.article`
+const OutputWrapper = styled.li`
   position: relative;
   border: 1px solid black;
   width: 300px;

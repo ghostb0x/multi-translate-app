@@ -3,29 +3,33 @@ import styled from 'styled-components';
 import OutputItem from '../OutputItem/OutputItem';
 
 function OutputsSection() {
-
   const [outputs, setOutputs] = React.useState([]);
 
   function addOutput() {
-    const key = crypto.randomUUID();
+    setOutputs([
+      ...outputs,
+      {
+        id: crypto.randomUUID(),
+      },
+    ]);
+  }
 
-    const newOutput = {
-      key: key,
-    };
-
-    let currentOutputs = [...outputs];
-    currentOutputs.push(newOutput);
-    setOutputs(currentOutputs);
+  function removeOutput(id) {
+    setOutputs(outputs.filter((output) => output.id !== id));
   }
 
   return (
     <SectionWrapper>
       <AddNew onClick={addOutput}>Add New Translation</AddNew>
-      {outputs.map(({ key, language, content }) => (
-        <OutputItem
-          key={key}
-        />
-      ))}
+      <ol>
+        {outputs.map((output) => (
+          <OutputItem
+            key={output.id}
+            id={output.id}
+            removeOutput={removeOutput}
+          />
+        ))}
+      </ol>
     </SectionWrapper>
   );
 }
