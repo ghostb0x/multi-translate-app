@@ -29,7 +29,7 @@ function AppProvider({ children }) {
     
     const options = {
       method: 'GET',
-      url: 'http://localhost:8000/translation',
+      url: 'https://multi-translate-app-api-backend-production.up.railway.app/translation',
       params: {
         q: queryText,
         source: input_lang,
