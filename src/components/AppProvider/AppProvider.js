@@ -47,13 +47,15 @@ function AppProvider({ children }) {
 
   // store saved queries in local storage when "save" button is clicked
   function saveCurrentSearch() {
+    // spread operator does not make a deep copy, which causes changes to outputs array
+    // to propogate to the saved state
+    let deepCopyOutputs = structuredClone(outputs)
     const currentSearch = {
       query: queryText,
-      outputs: [...outputs],
+      outputs: deepCopyOutputs,
     };
-    console.log("saved is: "+saved)
+
     const newSaves = [...saved]
-    console.log(newSaves)
     newSaves.push(currentSearch)
     const stringifiedSaves = JSON.stringify(newSaves);
     window.localStorage.setItem('saved-searches', stringifiedSaves);
