@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { AppContext } from '../AppProvider/AppProvider';
 import { Cross2Icon } from '@radix-ui/react-icons';
 
-function OutputItem({ id, removeOutput }) {
+function OutputItem({ id, removeOutput, updateLanguage, updateContent }) {
 
   const { fetchTranslate, getTranslation } =
     React.useContext(AppContext);
@@ -23,6 +23,7 @@ function OutputItem({ id, removeOutput }) {
       output.then((response) => {
         const translation =
           response.data.translations[0].translatedText;
+        updateContent(id, translation)
         setContent(
           fetchTranslate === 0
             ? 'Run Translate to see output'
@@ -38,6 +39,7 @@ function OutputItem({ id, removeOutput }) {
     <OutputLanguage
       value={language}
       onChange={(event) => {
+        updateLanguage(id, event.target.value)
         setLanguage(event.target.value);
       }}
     >
@@ -49,6 +51,8 @@ function OutputItem({ id, removeOutput }) {
       <option value="fr">French</option>
     </OutputLanguage>
   );
+
+  
 
   const item = (
     <OutputWrapper>

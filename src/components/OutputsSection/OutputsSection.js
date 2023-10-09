@@ -18,6 +18,38 @@ function OutputsSection() {
     setOutputs(outputs.filter((output) => output.id !== id));
   }
 
+  // modify updateLanguage and updateContent to use immer?
+  function updateLanguage(outputId, language) {
+    const outputIndex = outputs.findIndex(
+      (output) => output.id === outputId
+    );
+
+    const currentOutput = outputs[outputIndex];
+    currentOutput['language'] = language;
+
+    const newOutputs = [...outputs];
+    newOutputs.splice(outputIndex, 1, currentOutput);
+
+    setOutputs(newOutputs);
+  }
+
+  function updateContent(outputId, text) {
+    const outputIndex = outputs.findIndex(
+      (output) => output.id === outputId
+    );
+
+    const currentOutput = outputs[outputIndex];
+    currentOutput['text'] = text;
+
+    const newOutputs = [...outputs];
+    newOutputs.splice(outputIndex, 1, currentOutput);
+
+    setOutputs(newOutputs);
+  }
+
+
+  console.log(outputs)
+
   return (
     <SectionWrapper>
       <AddNew onClick={addOutput}>Add New Translation</AddNew>
@@ -27,6 +59,8 @@ function OutputsSection() {
             key={output.id}
             id={output.id}
             removeOutput={removeOutput}
+            updateLanguage={updateLanguage}
+            updateContent={updateContent}
           />
         ))}
       </ol>
