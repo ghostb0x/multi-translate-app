@@ -1,9 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import OutputItem from '../OutputItem/OutputItem';
+import { AppContext } from '../AppProvider/AppProvider';
+
 
 function OutputsSection() {
-  const [outputs, setOutputs] = React.useState([]);
+
+  const {
+    outputs,
+    setOutputs,
+    saveCurrentSearch
+  } = React.useContext(AppContext);
+
 
   function addOutput() {
     setOutputs([
@@ -47,11 +55,11 @@ function OutputsSection() {
     setOutputs(newOutputs);
   }
 
-
   console.log(outputs)
 
   return (
     <SectionWrapper>
+      <AddSavedSearch onClick={saveCurrentSearch}>Add to Saved Searches</AddSavedSearch>
       <AddNew onClick={addOutput}>Add New Translation</AddNew>
       <ol>
         {outputs.map((output) => (
@@ -71,6 +79,14 @@ function OutputsSection() {
 const SectionWrapper = styled.section`
   display: flex;
   flex-direction: column;
+`;
+
+const AddSavedSearch = styled.button`
+  border: 1px solid black;
+  width: fit-content;
+  border-radius: 6px;
+  padding: 6px;
+  background-color: cornflowerblue;
 `;
 
 const AddNew = styled.button`

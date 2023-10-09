@@ -5,46 +5,7 @@ export const AppContext = React.createContext();
 
 function AppProvider({ children }) {
   const [queryText, setQueryText] = React.useState('');
-
-  // saved searches functionality:
-
-  // (v1) on click of "Add to Saved Searches" button
-  //    - bundle current queryText and current outputs into single js object
-  //    - push to "saved searches" object
-  //    - push updated "saved searches" obj storage
-  // (v1) on click of saved item in "Saved Searches" panel
-  //    - retrieve from local storage and populate queryInput and outputs with values
-  // (v1) on click of X button of saved item from "Saved Searches" panel,
-  //    - remove item from local storage
-  //    - remove item from saved searches
-  // (v2) Upon first using "add to saved search"
-  //    - display warning alert that items saved in storage are not secure from hackers
-  //    - so no sensitive password data should ever be inputted and saved
-  //    - add acknowledgement before allowing
-
-  // store saved queries in local storage when "save" button is clicked
-  // saved searches should look like this:
-  // {
-  // query: "hello my love",
-  // outputs: [
-  // {language: "french", translated-text: "bonjour mon amor"},
-  // {language: "spanish", translated-text: "hola mi amor"}
-  // ]
-  // }
-
-
-  // for adding saved search to storage - need to incorporate into OutputsSection
-  // or elsewhere in UI - also need to work out passing state for querytex
-  function saveCurrentSearch(outputs_array) {
-    const currentSearch = {
-      query: queryText,
-      outputs: outputs_array,
-    };
-
-    const stringifiedSaves = JSON.stringify(currentSearch);
-    window.localStorage.setItem('saved-searches', stringifiedSaves);
-  }
-
+  const [outputs, setOutputs] = React.useState([]);
 
   const [fetchTranslate, setFetchTranslate] = React.useState(0);
 
@@ -68,13 +29,51 @@ function AppProvider({ children }) {
     }
   }
 
+  // saved searches functionality:
+
+  // (v1) on click of "Add to Saved Searches" button
+  //    - bundle current queryText and current outputs into single js object
+  //    - push to "saved searches" object
+  //    - push updated "saved searches" obj storage
+  // (v1) on click of saved item in "Saved Searches" panel
+  //    - retrieve from local storage and populate queryInput and outputs with values
+  // (v1) on click of X button of saved item from "Saved Searches" panel,
+  //    - remove item from local storage
+  //    - remove item from saved searches
+  // (v2) Upon first using "add to saved search"
+  //    - display warning alert that items saved in storage are not secure from hackers
+  //    - so no sensitive password data should ever be inputted and saved
+  //    - add acknowledgement before allowing
+
+  // store saved queries in local storage when "save" button is clicked
+  function saveCurrentSearch() {
+    const currentSearch = {
+      query: queryText,
+      outputs: [...outputs],
+    };
+    console.log("saved is: "+saved)
+    const newSaves = [...saved]
+    console.log(newSaves)
+    newSaves.push(currentSearch)
+    const stringifiedSaves = JSON.stringify(newSaves);
+    window.localStorage.setItem('saved-searches', stringifiedSaves);
+    setSaved(newSaves)
+  }
+
+  const [saved, setSaved] = React.useState([]);
+
+
   const providerValues = {
     queryText,
     setQueryText,
     fetchTranslate,
     setFetchTranslate,
+    outputs,
+    setOutputs,
     getTranslation,
     saveCurrentSearch,
+    saved,
+    setSaved
   };
 
   return (
