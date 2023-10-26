@@ -3,6 +3,7 @@ import { AppContext } from '../AppProvider/AppProvider';
 import styled from 'styled-components';
 import { QUERIES } from '@/constants';
 import LanguageSelector from '../LanguageSelector';
+import Textbox from '../Textbox';
 
 function QueryInput() {
   const {
@@ -20,7 +21,7 @@ function QueryInput() {
       onChange={(event) => {
         setQueryLang(event.target.value);
       }}/>
-      <Input
+      <Textbox
         id="input"
         value={queryText}
         onChange={(event) => {
@@ -32,7 +33,7 @@ function QueryInput() {
           setFetchTranslate(Math.random());
         }}
       >
-        Translate This ${queryLang}!
+        Translate This
       </Button>
     </Wrapper>
   );
@@ -45,17 +46,7 @@ const Wrapper = styled.div`
 
 const Label = styled.label``;
 
-const Input = styled.textarea`
-  width: 100%;
-  height: 100px;
-  font-family: var(--font-roboto);
-  font-size: 24px;
 
-  @media ${QUERIES.tabletAndUp} {
-    max-width: 50%;
-    margin: 1rem 10%;
-  }
-`;
 
 const Button = styled.button`
   border: 1px solid black;

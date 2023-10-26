@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AppContext } from '../AppProvider/AppProvider';
 import { X } from 'react-feather';
 import LanguageSelector from '../LanguageSelector';
+import Textbox from '../Textbox';
 
 function OutputItem({
   id,
@@ -56,11 +57,15 @@ function OutputItem({
           setOutputLang(event.target.value);
         }}
       />
-      <OutputText>
-        {content === null
-          ? 'Select Language and input message'
-          : content}
-      </OutputText>
+      <Textbox
+        id={`outputId:${id}`}
+        readOnly={true}
+        value={
+          content === null
+            ? 'Select Language and input message'
+            : content
+        }
+      />
     </OutputWrapper>
   );
 
@@ -69,8 +74,10 @@ function OutputItem({
 
 const OutputWrapper = styled.li`
   position: relative;
+  display: flex;
+  flex-direction: column;
   border: 1px solid black;
-  width: 300px;
+  /* width: 300px; */
   padding: 5px;
 `;
 
