@@ -17,7 +17,7 @@ function OutputItem({
   const [outputLang, setOutputLang] = React.useState('');
 
   const [content, setContent] = React.useState(
-    'Run Translate to see output'
+    `Click 'Run Translation' to see output`
   );
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ function OutputItem({
         updateContent(id, translation);
         setContent(
           fetchTranslate === 0
-            ? 'Run Translate to see output'
+            ? `Click 'Run Translation' to see output`
             : `${translation}`
         );
       });
@@ -43,26 +43,29 @@ function OutputItem({
 
   const item = (
     <OutputWrapper>
-      <CloseButton
-        onClick={() => {
-          removeOutput(id);
-        }}
-      >
-        <CloseIcon />
-      </CloseButton>
-      <LanguageSelector
-        value={outputLang}
-        onChange={(event) => {
-          updateLanguage(id, event.target.value);
-          setOutputLang(event.target.value);
-        }}
-      />
+      <Top>
+        
+        <LanguageSelector
+          value={outputLang}
+          onChange={(event) => {
+            updateLanguage(id, event.target.value);
+            setOutputLang(event.target.value);
+          }}
+        />
+        <CloseButton
+          onClick={() => {
+            removeOutput(id);
+          }}
+        >
+          <CloseIcon />
+        </CloseButton>
+      </Top>
       <Textbox
         id={`outputId:${id}`}
         readOnly={true}
         value={
           content === null
-            ? 'Select Language and input message'
+            ? `Select Language and input message`
             : content
         }
       />
@@ -74,29 +77,29 @@ function OutputItem({
 
 const OutputWrapper = styled.li`
   position: relative;
+  border: 1px solid black;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  /* width: 300px; */
-  padding: 5px;
+  margin-bottom: 10px;
+  border: none;
+`;
+
+const Top = styled.div`
+  display: flex;
+  width: 100%;
 `;
 
 const CloseButton = styled.button`
-  position: absolute;
+  /* position: absolute;
   top: 0;
-  right: 0;
+  right: 0; */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 40px;
   width: 40px;
+  border: none;
 `;
 const CloseIcon = styled(X)``;
-
-const OutputLanguage = styled.select``;
-
-const OutputText = styled.p`
-  margin-top: 10px;
-`;
 
 export default React.memo(OutputItem);

@@ -3,15 +3,13 @@ import styled from 'styled-components';
 import OutputItem from '../OutputItem/OutputItem';
 import { AppContext } from '../AppProvider/AppProvider';
 
-
 function OutputsSection() {
+  const { outputs, setOutputs } =
+    React.useContext(AppContext);
 
-  const {
-    outputs,
-    setOutputs,
-    saveCurrentSearch
-  } = React.useContext(AppContext);
-
+  React.useEffect(() => {
+    addOutput();
+  }, []);
 
   function addOutput() {
     setOutputs([
@@ -58,12 +56,14 @@ function OutputsSection() {
   }
 
   // testing
-  console.log(outputs)
+  console.log(outputs);
 
   return (
     <SectionWrapper>
-      <AddSavedSearch onClick={saveCurrentSearch}>Add to Saved Searches</AddSavedSearch>
-      <AddNew onClick={addOutput}>Add New Translation</AddNew>
+      <Top>
+        <h2>Translations:</h2>
+        <AddNew onClick={addOutput}>Add New Translation</AddNew>
+      </Top>
       <ol>
         {outputs.map((output) => (
           <OutputItem
@@ -82,21 +82,22 @@ function OutputsSection() {
 const SectionWrapper = styled.section`
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 `;
 
-const AddSavedSearch = styled.button`
-  border: 1px solid black;
-  width: fit-content;
-  border-radius: 6px;
-  padding: 6px;
-  background-color: cornflowerblue;
+const Top = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 `;
 
 const AddNew = styled.button`
-  border: 1px solid black;
-  width: fit-content;
-  border-radius: 6px;
-  padding: 6px;
+  border: none;
+  padding: 5px;
+  width: 50%;
+  height: 50px;
+  background-color: darkslateblue;
 `;
 
 export default OutputsSection;

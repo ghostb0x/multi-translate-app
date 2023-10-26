@@ -12,29 +12,44 @@ function QueryInput() {
     queryLang,
     setQueryLang,
     setFetchTranslate,
+    saveCurrentSearch,
   } = React.useContext(AppContext);
 
   return (
     <Wrapper>
-      <Label htmlFor="input">Input your Query</Label>
-      <LanguageSelector value={queryLang}
-      onChange={(event) => {
-        setQueryLang(event.target.value);
-      }}/>
+      <Label htmlFor="input">
+        Select a language, add your text
+      </Label>
+      <LanguageSelector
+        value={queryLang}
+        onChange={(event) => {
+          setQueryLang(event.target.value);
+        }}
+      />
       <Textbox
         id="input"
+        placeholder="Add your text here..."
         value={queryText}
         onChange={(event) => {
           setQueryText(event.target.value);
         }}
       />
-      <Button
-        onClick={() => {
-          setFetchTranslate(Math.random());
-        }}
-      >
-        Translate This
-      </Button>
+
+      <ButtonsWrapper>
+        <Button
+          onClick={() => {
+            setFetchTranslate(Math.random());
+          }}
+        >
+          Run Translation
+        </Button>
+        <Button
+          onClick={saveCurrentSearch}
+          $color="cornflowerblue"
+        >
+          Add to Saved Searches
+        </Button>
+      </ButtonsWrapper>
     </Wrapper>
   );
 }
@@ -44,16 +59,23 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const Label = styled.label``;
+const Label = styled.label`
+  font-family: var(--font-roboto);
+  text-align: center;
+  margin-bottom: 10px;
+`;
 
-
+const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
 
 const Button = styled.button`
-  border: 1px solid black;
-  background: orange;
-  width: fit-content;
+  background: ${(props) => props.$color || '#BF4F74'};
+  border: none;
   padding: 5px;
-  border-radius: 6px;
+  width: 50%;
+  height: 50px;
 `;
 
 export default QueryInput;

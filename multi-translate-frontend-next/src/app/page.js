@@ -1,8 +1,12 @@
 'use client';
-import Image from 'next/image'
-import styles from './page.module.css'
-import App from '@/components/App'
+import styles from './page.module.css';
+import AppProvider from '@/components/AppProvider';
+import MainBody from '@/components/MainBody';
 
 export default function Home() {
-  return <App />
+  return (
+    <AppProvider>
+      <MainBody />
+    </AppProvider>
+  );
 }

@@ -8,7 +8,7 @@ function AppProvider({ children }) {
   const [queryLang, setQueryLang] = React.useState('');
   const [outputs, setOutputs] = React.useState([]);
 
-  const [fetchTranslate, setFetchTranslate] = React.useState(0);
+  const [fetchTranslate, setFetchTranslate] = React.useState(1);
 
   async function getTranslation(input_lang, output_lang) {
     const options = {
