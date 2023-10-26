@@ -5,6 +5,7 @@ export const AppContext = React.createContext();
 
 function AppProvider({ children }) {
   const [queryText, setQueryText] = React.useState('');
+  const [queryLang, setQueryLang] = React.useState('');
   const [outputs, setOutputs] = React.useState([]);
 
   const [fetchTranslate, setFetchTranslate] = React.useState(0);
@@ -49,25 +50,26 @@ function AppProvider({ children }) {
   function saveCurrentSearch() {
     // spread operator does not make a deep copy, which causes changes to outputs array
     // to propogate to the saved state
-    let deepCopyOutputs = structuredClone(outputs)
+    let deepCopyOutputs = structuredClone(outputs);
     const currentSearch = {
       query: queryText,
       outputs: deepCopyOutputs,
     };
 
-    const newSaves = [...saved]
-    newSaves.push(currentSearch)
+    const newSaves = [...saved];
+    newSaves.push(currentSearch);
     const stringifiedSaves = JSON.stringify(newSaves);
     window.localStorage.setItem('saved-searches', stringifiedSaves);
-    setSaved(newSaves)
+    setSaved(newSaves);
   }
 
   const [saved, setSaved] = React.useState([]);
 
-
   const providerValues = {
     queryText,
     setQueryText,
+    queryLang,
+    setQueryLang,
     fetchTranslate,
     setFetchTranslate,
     outputs,
@@ -75,7 +77,7 @@ function AppProvider({ children }) {
     getTranslation,
     saveCurrentSearch,
     saved,
-    setSaved
+    setSaved,
   };
 
   return (

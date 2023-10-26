@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { AppContext } from '../AppProvider/AppProvider';
 import { X } from 'react-feather';
+import LanguageSelector from '../LanguageSelector';
 
 function OutputItem({
   id,
@@ -9,10 +10,10 @@ function OutputItem({
   updateLanguage,
   updateContent,
 }) {
-  const { fetchTranslate, getTranslation } =
+  const { queryLang, fetchTranslate, getTranslation } =
     React.useContext(AppContext);
 
-  const [language, setLanguage] = React.useState('');
+  const [outputLang, setOutputLang] = React.useState('');
 
   const [content, setContent] = React.useState(
     'Run Translate to see output'
@@ -21,8 +22,8 @@ function OutputItem({
   React.useEffect(() => {
     try {
       let output;
-      if (language !== '') {
-        output = getTranslation('en', language);
+      if (outputLang !== '') {
+        output = getTranslation(queryLang, outputLang);
       }
       output.then((response) => {
         const translation =
@@ -39,23 +40,6 @@ function OutputItem({
     }
   }, [fetchTranslate]);
 
-  const languageSelect = (
-    <OutputLanguage
-      value={language}
-      onChange={(event) => {
-        updateLanguage(id, event.target.value);
-        setLanguage(event.target.value);
-      }}
-    >
-      <option value={''}>--Select Language--</option>
-      <option value="en">English</option>
-      <option value="es">Spanish</option>
-      <option value="pt">Portuguese</option>
-      <option value="de">German</option>
-      <option value="fr">French</option>
-    </OutputLanguage>
-  );
-
   const item = (
     <OutputWrapper>
       <CloseButton
@@ -65,7 +49,13 @@ function OutputItem({
       >
         <CloseIcon />
       </CloseButton>
-      {languageSelect}
+      <LanguageSelector
+        value={outputLang}
+        onChange={(event) => {
+          updateLanguage(id, event.target.value);
+          setOutputLang(event.target.value);
+        }}
+      />
       <OutputText>
         {content === null
           ? 'Select Language and input message'

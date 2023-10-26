@@ -26,14 +26,16 @@ function OutputsSection() {
     setOutputs(outputs.filter((output) => output.id !== id));
   }
 
+  // these funcs modify the "outputs" objects, rather than the component UI
   // modify updateLanguage and updateContent to use immer?
-  function updateLanguage(outputId, language) {
+  function updateLanguage(outputId, lang_code) {
     const outputIndex = outputs.findIndex(
       (output) => output.id === outputId
     );
 
     const currentOutput = outputs[outputIndex];
-    currentOutput['language'] = language;
+
+    currentOutput['language'] = lang_code;
 
     const newOutputs = [...outputs];
     newOutputs.splice(outputIndex, 1, currentOutput);
@@ -55,6 +57,7 @@ function OutputsSection() {
     setOutputs(newOutputs);
   }
 
+  // testing
   console.log(outputs)
 
   return (
