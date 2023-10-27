@@ -16,7 +16,7 @@ function QueryInput() {
 
   return (
     <Wrapper>
-      <Label htmlFor="input">Select a language, add your text</Label>
+      <Label htmlFor="input">Select a language and add text to translate</Label>
       <LanguageSelector
         value={queryLang}
         onChange={(event) => {

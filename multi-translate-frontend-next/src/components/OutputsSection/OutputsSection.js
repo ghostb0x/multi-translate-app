@@ -4,8 +4,7 @@ import OutputItem from '../OutputItem/OutputItem';
 import { AppContext } from '../AppProvider/AppProvider';
 
 function OutputsSection() {
-  const { outputs, setOutputs } =
-    React.useContext(AppContext);
+  const { outputs, setOutputs } = React.useContext(AppContext);
 
   React.useEffect(() => {
     addOutput();
@@ -62,6 +61,11 @@ function OutputsSection() {
     <SectionWrapper>
       <Top>
         <h2>Translations:</h2>
+        <p>
+          Click &apos;Add New Translation&apos; to translate your
+          search into multiple languages
+        </p>
+
         <AddNew onClick={addOutput}>Add New Translation</AddNew>
       </Top>
       <ol>
@@ -87,15 +91,17 @@ const SectionWrapper = styled.section`
 
 const Top = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
+  text-align: center;
   margin-bottom: 10px;
 `;
 
 const AddNew = styled.button`
   border: none;
   padding: 5px;
-  width: 50%;
+  width: 100%;
   height: 50px;
   background-color: darkslateblue;
 `;

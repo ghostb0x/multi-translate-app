@@ -4,6 +4,10 @@ import styled from 'styled-components';
 function LanguageSelector({ ...delegated }) {
   const LANGUAGES = [
     {
+      language: 'English',
+      code: 'en',
+    },
+    {
       language: 'Afrikaans',
       code: 'af',
     },
@@ -424,7 +428,9 @@ function LanguageSelector({ ...delegated }) {
   return (
     <>
       <Select {...delegated}>
-        <option value={''}>{'-->'} Select Language {'<--'}</option>
+        <option value={''}>
+          {'-->'} Select Language {'<--'}
+        </option>
         {LANGUAGES.map(({ code, language }) => {
           return (
             <option
