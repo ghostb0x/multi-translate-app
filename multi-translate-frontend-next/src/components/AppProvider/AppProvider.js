@@ -52,7 +52,9 @@ function AppProvider({ children }) {
     // to propogate to the saved state
     let deepCopyOutputs = structuredClone(outputs);
     const currentSearch = {
-      query: queryText,
+      query: {
+        language: queryLang,
+        text: queryText},
       outputs: deepCopyOutputs,
     };
 

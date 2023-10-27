@@ -12,14 +12,11 @@ function QueryInput() {
     queryLang,
     setQueryLang,
     setFetchTranslate,
-    saveCurrentSearch,
   } = React.useContext(AppContext);
 
   return (
     <Wrapper>
-      <Label htmlFor="input">
-        Select a language, add your text
-      </Label>
+      <Label htmlFor="input">Select a language, add your text</Label>
       <LanguageSelector
         value={queryLang}
         onChange={(event) => {
@@ -42,12 +39,6 @@ function QueryInput() {
           }}
         >
           Run Translation
-        </Button>
-        <Button
-          onClick={saveCurrentSearch}
-          $color="cornflowerblue"
-        >
-          Add to Saved Searches
         </Button>
       </ButtonsWrapper>
     </Wrapper>
@@ -74,7 +65,7 @@ const Button = styled.button`
   background: ${(props) => props.$color || '#BF4F74'};
   border: none;
   padding: 5px;
-  width: 50%;
+  width: 100%;
   height: 50px;
 `;
 
