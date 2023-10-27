@@ -4,6 +4,7 @@ import { AppContext } from '../AppProvider/AppProvider';
 import { X } from 'react-feather';
 import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
+import CloseButton from '../CloseButton';
 
 function OutputItem({
   id,
@@ -44,7 +45,6 @@ function OutputItem({
   const item = (
     <OutputWrapper>
       <Top>
-        
         <LanguageSelector
           value={outputLang}
           onChange={(event) => {
@@ -56,9 +56,7 @@ function OutputItem({
           onClick={() => {
             removeOutput(id);
           }}
-        >
-          <CloseIcon />
-        </CloseButton>
+        />
       </Top>
       <Textbox
         id={`outputId:${id}`}
@@ -88,18 +86,5 @@ const Top = styled.div`
   display: flex;
   width: 100%;
 `;
-
-const CloseButton = styled.button`
-  /* position: absolute;
-  top: 0;
-  right: 0; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  width: 40px;
-  border: none;
-`;
-const CloseIcon = styled(X)``;
 
 export default React.memo(OutputItem);

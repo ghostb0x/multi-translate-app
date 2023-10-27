@@ -6,7 +6,7 @@ export const AppContext = React.createContext();
 function AppProvider({ children }) {
   const [queryText, setQueryText] = React.useState('');
   const [queryLang, setQueryLang] = React.useState('');
-  const [outputs, setOutputs] = React.useState([]);
+  const [outputs, setOutputs] = React.useState([{id: crypto.randomUUID()}]);
 
   const [fetchTranslate, setFetchTranslate] = React.useState(1);
 
@@ -52,9 +52,11 @@ function AppProvider({ children }) {
     // to propogate to the saved state
     let deepCopyOutputs = structuredClone(outputs);
     const currentSearch = {
+      id: crypto.randomUUID(),
       query: {
         language: queryLang,
-        text: queryText},
+        text: queryText,
+      },
       outputs: deepCopyOutputs,
     };
 

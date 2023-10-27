@@ -6,10 +6,6 @@ import { AppContext } from '../AppProvider/AppProvider';
 function OutputsSection() {
   const { outputs, setOutputs } = React.useContext(AppContext);
 
-  React.useEffect(() => {
-    addOutput();
-  }, []);
-
   function addOutput() {
     setOutputs([
       ...outputs,

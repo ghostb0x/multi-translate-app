@@ -4,6 +4,7 @@ import { AppContext } from '../AppProvider/AppProvider';
 import styled from 'styled-components';
 import Textbox from '../Textbox';
 import LanguageSelector from '../LanguageSelector';
+import CloseButton from '../CloseButton';
 
 function SavedSearches() {
   // this is a bar at the top - it has an "Add to saved search" button, and a "view saved searches" button
@@ -28,7 +29,7 @@ function SavedSearches() {
     }
   }, []);
 
-  const savedItems = saved.map(({ query, outputs }) => {
+  const savedItems = saved.map(({ id, query, outputs }, index) => {
     let outputItems;
 
     if (outputs.length > 0) {
@@ -48,9 +49,16 @@ function SavedSearches() {
 
     return (
       <SavedItem key={query.texy}>
+        <Row>
+          <p>{`Save number ${index + 1}`}</p>
+          <Col>
+            <CloseButton onClick={() => removeSave(id)} />
+            <p>Delete Save</p>
+          </Col>
+        </Row>
         <SectionName>Query:</SectionName>
         <LanguageSelector value={query.language}></LanguageSelector>
-        <Textbox>{query.text}</Textbox>
+        <Textbox value={query.text} />
         <SectionName>Translations:</SectionName>
         <ul>{outputItems}</ul>
       </SavedItem>
@@ -66,6 +74,16 @@ function SavedSearches() {
       savedItems
     );
 
+  function removeSave(id) {
+    console.log(id);
+    let newSaves = [...saved];
+    newSaves = newSaves.filter((save) => save.id !== id);
+
+    const stringifiedSaves = JSON.stringify(newSaves);
+    window.localStorage.setItem('saved-searches', stringifiedSaves);
+    setSaved(newSaves);
+  }
+
   return (
     <div>
       <h2>Saved Searches</h2>
@@ -80,7 +98,7 @@ function SavedSearches() {
           onClick={() => setShowSaved(!showSaved)}
           $color="darkseagreen"
         >
-          {showSaved ? "Hide Saved Searches" : "View Saved Searches"}
+          {showSaved ? 'Hide Saved Searches' : 'View Saved Searches'}
         </Button>
       </ButtonsWrapper>
       <SavedData>{showSaved ? displaySaves : null}</SavedData>
@@ -110,6 +128,18 @@ const SavedItem = styled.article`
   flex-direction: column;
   border: 1px solid;
   padding: 5px;
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Col = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 const SavedTranslation = styled.li``;
