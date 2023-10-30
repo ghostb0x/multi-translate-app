@@ -52,9 +52,6 @@ function OutputsSection() {
     setOutputs(newOutputs);
   }
 
-  // testing
-  console.log(outputs);
-
   return (
     <SectionWrapper>
       <Top>

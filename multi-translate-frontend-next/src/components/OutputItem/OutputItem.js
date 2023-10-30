@@ -18,27 +18,24 @@ function OutputItem({
 
   const [outputLang, setOutputLang] = React.useState(language);
 
+  const placeholderText = `Click 'Run Translation' to see output`;
   const [content, setContent] = React.useState(
-    text ? text : `Click 'Run Translation' to see output`
+    text ? text : placeholderText
   );
-  
-  // need a trigger that is independent of Lang and Content
-  // new property -
+
   //Fetch translation content on Run Translation
   React.useEffect(() => {
     try {
-      console.log('Use Effect ran');
       let output;
-      if (triggerFetch) {
-        console.log('API CALL RANNNNNNN!!!!');
-        console.log(outputLang);
+
+      if (triggerFetch && outputLang) {
         output = getTranslation(queryLang, outputLang);
         output.then((response) => {
           const translation =
             response.data.translations[0].translatedText;
           updateContent(id, translation);
           setContent(translation);
-          setTriggerFetch(0)
+          setTriggerFetch(0);
         });
       }
     } catch (error) {

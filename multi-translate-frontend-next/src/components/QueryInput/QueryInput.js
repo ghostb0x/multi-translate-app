@@ -1,7 +1,6 @@
 import React from 'react';
 import { AppContext } from '../AppProvider/AppProvider';
 import styled from 'styled-components';
-import { QUERIES } from '@/constants';
 import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
 
@@ -16,7 +15,9 @@ function QueryInput() {
 
   return (
     <Wrapper>
-      <Label htmlFor="input">Select a language and add text to translate</Label>
+      <Label htmlFor="input">
+        Select a language and add text to translate
+      </Label>
       <LanguageSelector
         value={queryLang}
         onChange={(event) => {
@@ -35,7 +36,13 @@ function QueryInput() {
       <ButtonsWrapper>
         <Button
           onClick={() => {
-            setTriggerFetch(Math.random());
+            if (queryText && queryLang) {
+              setTriggerFetch(Math.random());
+            } else {
+              console.log(
+                'Please ensure you have selected an original text language, and have added some text to translate.'
+              );
+            }
           }}
         >
           Run Translation
@@ -68,5 +75,6 @@ const Button = styled.button`
   width: 100%;
   height: 50px;
 `;
+
 
 export default QueryInput;

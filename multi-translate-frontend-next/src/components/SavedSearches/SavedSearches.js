@@ -7,9 +7,6 @@ import LanguageSelector from '../LanguageSelector';
 import CloseButton from '../CloseButton';
 
 function SavedSearches() {
-  // this is a bar at the top - it has an "Add to saved search" button, and a "view saved searches" button
-  // after a saved search is saved, the "view saved searches" button flashes as an indicator that query was saved
-  // when "view saved searches" is clicked, a modal renders to show saved search history
 
   const { saved, setSaved, saveCurrentSearch, loadSave } =
     React.useContext(AppContext);
@@ -20,7 +17,6 @@ function SavedSearches() {
   React.useEffect(() => {
     const stored = window.localStorage.getItem('saved-searches');
     if (stored) {
-      const parsed = JSON.parse(stored);
       setSaved(JSON.parse(stored));
     } else {
       setSaved([]);
@@ -86,7 +82,6 @@ function SavedSearches() {
     );
 
   function removeSave(id) {
-    console.log(id);
     let newSaves = [...saved];
     newSaves = newSaves.filter((save) => save.id !== id);
 
