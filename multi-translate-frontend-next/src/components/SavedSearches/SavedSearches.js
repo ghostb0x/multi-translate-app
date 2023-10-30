@@ -11,7 +11,7 @@ function SavedSearches() {
   // after a saved search is saved, the "view saved searches" button flashes as an indicator that query was saved
   // when "view saved searches" is clicked, a modal renders to show saved search history
 
-  const { saved, setSaved, saveCurrentSearch } =
+  const { saved, setSaved, saveCurrentSearch, loadSave } =
     React.useContext(AppContext);
 
   const [showSaved, setShowSaved] = React.useState(false);
@@ -20,9 +20,7 @@ function SavedSearches() {
   React.useEffect(() => {
     const stored = window.localStorage.getItem('saved-searches');
     if (stored) {
-      console.log('setting saved to: ' + stored);
       const parsed = JSON.parse(stored);
-      console.log(Object.keys(parsed));
       setSaved(JSON.parse(stored));
     } else {
       setSaved([]);
@@ -37,9 +35,13 @@ function SavedSearches() {
         return (
           <SavedTranslation key={output.id}>
             <LanguageSelector
+              readOnly
               value={output.language}
-            ></LanguageSelector>
-            <Textbox>{output.text}</Textbox>
+            />
+            <Textbox
+              readOnly
+              value={output.text}
+            />
           </SavedTranslation>
         );
       });
@@ -48,7 +50,7 @@ function SavedSearches() {
     }
 
     return (
-      <SavedItem key={query.texy}>
+      <SavedItem key={id}>
         <Row>
           <p>{`Save number ${index + 1}`}</p>
           <Col>
@@ -56,9 +58,18 @@ function SavedSearches() {
             <p>Delete Save</p>
           </Col>
         </Row>
+        <Button onClick={() => loadSave(query, outputs)}>
+          Open Save in Editor
+        </Button>
         <SectionName>Query:</SectionName>
-        <LanguageSelector value={query.language}></LanguageSelector>
-        <Textbox value={query.text} />
+        <LanguageSelector
+          readOnly
+          value={query.language}
+        />
+        <Textbox
+          readOnly
+          value={query.text}
+        />
         <SectionName>Translations:</SectionName>
         <ul>{outputItems}</ul>
       </SavedItem>

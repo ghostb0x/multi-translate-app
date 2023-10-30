@@ -6,9 +6,18 @@ export const AppContext = React.createContext();
 function AppProvider({ children }) {
   const [queryText, setQueryText] = React.useState('');
   const [queryLang, setQueryLang] = React.useState('');
-  const [outputs, setOutputs] = React.useState([{id: crypto.randomUUID()}]);
+  const [outputs, setOutputs] = React.useState([
+    { id: '1', language: '', text: '' },
+  ]);
+  const [saved, setSaved] = React.useState([]);
 
-  const [fetchTranslate, setFetchTranslate] = React.useState(1);
+  const [triggerFetch, setTriggerFetch] = React.useState(0);
+
+  function loadSave(savedQuery, savedOutputs) {
+    setOutputs(savedOutputs);
+    setQueryText(savedQuery.text);
+    setQueryLang(savedQuery.language);
+  }
 
   async function getTranslation(input_lang, output_lang) {
     const options = {
@@ -32,15 +41,6 @@ function AppProvider({ children }) {
 
   // saved searches functionality:
 
-  // (v1) on click of "Add to Saved Searches" button
-  //    - bundle current queryText and current outputs into single js object
-  //    - push to "saved searches" object
-  //    - push updated "saved searches" obj storage
-  // (v1) on click of saved item in "Saved Searches" panel
-  //    - retrieve from local storage and populate queryInput and outputs with values
-  // (v1) on click of X button of saved item from "Saved Searches" panel,
-  //    - remove item from local storage
-  //    - remove item from saved searches
   // (v2) Upon first using "add to saved search"
   //    - display warning alert that items saved in storage are not secure from hackers
   //    - so no sensitive password data should ever be inputted and saved
@@ -48,9 +48,21 @@ function AppProvider({ children }) {
 
   // store saved queries in local storage when "save" button is clicked
   function saveCurrentSearch() {
+    // if any output in deepCopyOutputs has id="1", update to cryptoRandom
+    const outputIndex = outputs.findIndex(
+      (output) => output.id === "1"
+    );
+
+    if (outputIndex !== -1) {
+      outputs[outputIndex]["id"] = crypto.randomUUID();
+    }
+    
     // spread operator does not make a deep copy, which causes changes to outputs array
     // to propogate to the saved state
     let deepCopyOutputs = structuredClone(outputs);
+
+
+
     const currentSearch = {
       id: crypto.randomUUID(),
       query: {
@@ -67,21 +79,20 @@ function AppProvider({ children }) {
     setSaved(newSaves);
   }
 
-  const [saved, setSaved] = React.useState([]);
-
   const providerValues = {
     queryText,
     setQueryText,
     queryLang,
     setQueryLang,
-    fetchTranslate,
-    setFetchTranslate,
+    triggerFetch,
+    setTriggerFetch,
     outputs,
     setOutputs,
     getTranslation,
     saveCurrentSearch,
     saved,
     setSaved,
+    loadSave,
   };
 
   return (

@@ -1,46 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AppContext } from '../AppProvider/AppProvider';
-import { X } from 'react-feather';
 import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
 import CloseButton from '../CloseButton';
 
 function OutputItem({
   id,
+  language,
+  text,
   removeOutput,
   updateLanguage,
   updateContent,
 }) {
-  const { queryLang, fetchTranslate, getTranslation } =
+  const { queryLang, triggerFetch, setTriggerFetch, getTranslation } =
     React.useContext(AppContext);
 
-  const [outputLang, setOutputLang] = React.useState('');
+  const [outputLang, setOutputLang] = React.useState(language);
 
   const [content, setContent] = React.useState(
-    `Click 'Run Translation' to see output`
+    text ? text : `Click 'Run Translation' to see output`
   );
-
+  
+  // need a trigger that is independent of Lang and Content
+  // new property -
+  //Fetch translation content on Run Translation
   React.useEffect(() => {
     try {
+      console.log('Use Effect ran');
       let output;
-      if (outputLang !== '') {
+      if (triggerFetch) {
+        console.log('API CALL RANNNNNNN!!!!');
+        console.log(outputLang);
         output = getTranslation(queryLang, outputLang);
+        output.then((response) => {
+          const translation =
+            response.data.translations[0].translatedText;
+          updateContent(id, translation);
+          setContent(translation);
+          setTriggerFetch(0)
+        });
       }
-      output.then((response) => {
-        const translation =
-          response.data.translations[0].translatedText;
-        updateContent(id, translation);
-        setContent(
-          fetchTranslate === 0
-            ? `Click 'Run Translation' to see output`
-            : `${translation}`
-        );
-      });
     } catch (error) {
       console.log(error);
     }
-  }, [fetchTranslate]);
+  }, [triggerFetch]);
 
   const item = (
     <OutputWrapper>
@@ -60,12 +64,8 @@ function OutputItem({
       </Top>
       <Textbox
         id={`outputId:${id}`}
-        readOnly={true}
-        value={
-          content === null
-            ? `Select Language and input message`
-            : content
-        }
+        readOnly
+        value={content}
       />
     </OutputWrapper>
   );

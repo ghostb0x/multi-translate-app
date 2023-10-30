@@ -11,7 +11,7 @@ function QueryInput() {
     setQueryText,
     queryLang,
     setQueryLang,
-    setFetchTranslate,
+    setTriggerFetch,
   } = React.useContext(AppContext);
 
   return (
@@ -35,7 +35,7 @@ function QueryInput() {
       <ButtonsWrapper>
         <Button
           onClick={() => {
-            setFetchTranslate(Math.random());
+            setTriggerFetch(Math.random());
           }}
         >
           Run Translation

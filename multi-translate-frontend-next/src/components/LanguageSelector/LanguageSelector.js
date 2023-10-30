@@ -434,7 +434,7 @@ function LanguageSelector({ ...delegated }) {
         {LANGUAGES.map(({ code, language }) => {
           return (
             <option
-              key={code}
+              key={crypto.randomUUID()}
               value={code}
             >
               {language}

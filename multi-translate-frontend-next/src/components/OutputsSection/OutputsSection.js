@@ -11,6 +11,8 @@ function OutputsSection() {
       ...outputs,
       {
         id: crypto.randomUUID(),
+        language: "",
+        text: "",
       },
     ]);
   }
@@ -69,6 +71,8 @@ function OutputsSection() {
           <OutputItem
             key={output.id}
             id={output.id}
+            language={output.language}
+            text={output.text}
             removeOutput={removeOutput}
             updateLanguage={updateLanguage}
             updateContent={updateContent}
