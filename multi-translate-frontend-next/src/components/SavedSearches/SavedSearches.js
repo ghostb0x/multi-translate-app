@@ -27,7 +27,7 @@ function SavedSearches() {
     let outputItems;
 
     if (outputs.length > 0) {
-      outputItems = outputs.map((output, index) => {
+      outputItems = outputs.map((output) => {
         return (
           <SavedTranslation key={output.id}>
             <SavedItem
@@ -87,7 +87,7 @@ function SavedSearches() {
           Save Current Search
         </Button>
         <Button
-          color="#a0f1f2"
+          color="var(--color-secondary)"
           onClick={() => setShowSaved(!showSaved)}
         >
           {showSaved ? 'Hide Saved Searches' : 'View Saved Searches'}
@@ -113,10 +113,10 @@ const SavedData = styled.div`
 `;
 
 const SavedWrapper = styled.article`
-  display: flex;
-  flex-direction: column;
   border-top: 1px solid;
   padding: 5px 0 0 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Row = styled.div`
@@ -125,7 +125,6 @@ const Row = styled.div`
   align-items: center;
 `;
 
-
 const Col = styled.div`
   display: flex;
   flex-direction: column;
@@ -133,12 +132,5 @@ const Col = styled.div`
 `;
 
 const SavedTranslation = styled.li``;
-
-// const SectionName = styled.p`
-//   margin-top: 10px;
-//   margin-bottom: 10px;
-//   align-self: center;
-//   font-weight: 700;
-// `;
 
 export default SavedSearches;

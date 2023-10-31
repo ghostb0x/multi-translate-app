@@ -1,3 +1,4 @@
+import { QUERIES } from '@/constants';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -443,18 +444,24 @@ function LanguageSelector({ ...delegated }) {
 }
 
 const Select = styled.select`
+  align-self: center;
+
+  margin: 0 5px 1px 5px;
+  width: 90%;
+  height: 40px;
+  
+  border-radius: 10rem;
+  border: 1px solid cornflowerblue;
+
   appearance: none;
   font-family: var(--font-roboto);
   font-size: 20px;
-  height: 40px;
-  width: 90%;
-  align-self: center;
   text-align: center;
-  border-radius: 10rem;
-  border: 1px solid cornflowerblue;
-  /* background-color: white; */
-  margin: 0 5px 1px 5px;
   color: var(--color-gray-900);
+
+  @media ${QUERIES.laptopAndUp} {
+    grid-area: select;    
+  }
   
 `;
 

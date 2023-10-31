@@ -25,13 +25,14 @@ function Word({ children, type, ...delegated }) {
 }
 
 const SectionName = styled(Word)`
+  align-self: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  align-self: center;
+  
   font-weight: 700;
+  font-size: 1.1rem;
   text-align: center;
   color: var(--color-gray-900);
-  font-size: 1.1rem;
 `;
 
 export default SectionName;

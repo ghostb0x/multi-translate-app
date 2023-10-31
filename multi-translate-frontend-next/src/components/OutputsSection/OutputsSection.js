@@ -54,7 +54,6 @@ function OutputsSection() {
     setOutputs(newOutputs);
   }
 
-  console.log(outputs);
 
   return (
     <SectionWrapper>
@@ -85,18 +84,18 @@ function OutputsSection() {
 }
 
 const SectionWrapper = styled.section`
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
 `;
 
 const Top = styled.div`
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
   align-items: center;
   text-align: center;
-  margin-bottom: 10px;
+  gap: 10px;
 `;
 
 const TranslationOutputs = styled.ul``;

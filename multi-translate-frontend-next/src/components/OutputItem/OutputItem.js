@@ -72,18 +72,18 @@ function OutputItem({
 
 const OutputWrapper = styled.li`
   position: relative;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
   margin-bottom: 10px;
   border: none;
-  background: var(--color-gray-300);
   padding: 5px 0;
+  
+  display: flex;
+  flex-direction: column;
+  background: var(--color-gray-300);
 `;
 
 const Top = styled.div`
-  display: flex;
   width: 100%;
+  display: flex;
 `;
 
 export default React.memo(OutputItem);
