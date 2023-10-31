@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components/macro';
-
-import { COLORS, WEIGHTS, FAMILIES } from '../../constants';
+'use client';
+import { createGlobalStyle } from 'styled-components';
+import { COLORS, WEIGHTS, FAMILIES } from '../constants';
 
 const GlobalStyles = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -64,9 +64,6 @@ html {
   --font-weight-medium: ${WEIGHTS.medium};
   --font-weight-bold: ${WEIGHTS.bold};
 
-  --font-family-serif: ${FAMILIES.serif};
-  --font-family-sans-serif: ${FAMILIES.sansSerif};
-  --font-family-logo: ${FAMILIES.logo};
 }
 
 
@@ -100,13 +97,10 @@ html, body, #root {
 }
 
 body {
-  background-color: var(--color-gray-100);
-  font-family: 'Crimson Pro', sans-serif;
 }
 
 /*
-  Remove default button styles. We'll provide our own at the
-  component level
+  Remove default button styles. Define at the component level
 */
 button {
   display: block;

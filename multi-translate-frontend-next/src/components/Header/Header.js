@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import SectionName from '../SectionName';
 
 function Header() {
   return (
     <Wrapper>
-      <Title>Powered by Google Translate</Title>
+      <SectionName type="h1">Multi-translate: Powered by Google Translate</SectionName>
     </Wrapper>
     );
 }
@@ -12,13 +13,8 @@ function Header() {
 const Wrapper = styled.header`
   margin-bottom: 10px;
   border-bottom: 1px solid;
-  padding: 10px;
+  padding: 8px;
 `;
 
-const Title = styled.h1`
-  font-family: var(--font-roboto);
-  font-size: 24px;
-  text-align: center;
-`;
 
 export default Header;

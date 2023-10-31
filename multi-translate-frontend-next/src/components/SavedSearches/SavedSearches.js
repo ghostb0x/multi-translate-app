@@ -2,12 +2,12 @@ import React from 'react';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { AppContext } from '../AppProvider/AppProvider';
 import styled from 'styled-components';
-import Textbox from '../Textbox';
-import LanguageSelector from '../LanguageSelector';
 import CloseButton from '../CloseButton';
+import Button from '../Button';
+import SavedItem from '../SavedItem';
+import SectionName from '../SectionName';
 
 function SavedSearches() {
-
   const { saved, setSaved, saveCurrentSearch, loadSave } =
     React.useContext(AppContext);
 
@@ -30,13 +30,9 @@ function SavedSearches() {
       outputItems = outputs.map((output, index) => {
         return (
           <SavedTranslation key={output.id}>
-            <LanguageSelector
-              readOnly
-              value={output.language}
-            />
-            <Textbox
-              readOnly
-              value={output.text}
+            <SavedItem
+              language={output.language}
+              text={output.text}
             />
           </SavedTranslation>
         );
@@ -46,29 +42,22 @@ function SavedSearches() {
     }
 
     return (
-      <SavedItem key={id}>
-        <Row>
-          <p>{`Save number ${index + 1}`}</p>
-          <Col>
-            <CloseButton onClick={() => removeSave(id)} />
-            <p>Delete Save</p>
-          </Col>
-        </Row>
+      <SavedWrapper key={id}>
+        <Col>
+          <CloseButton onClick={() => removeSave(id)} />
+          <SectionName type="h3">{`Save #${index + 1}`}</SectionName>
+        </Col>
         <Button onClick={() => loadSave(query, outputs)}>
           Open Save in Editor
         </Button>
-        <SectionName>Query:</SectionName>
-        <LanguageSelector
-          readOnly
-          value={query.language}
+        <SectionName type="h4">Query</SectionName>
+        <SavedItem
+          language={query.language}
+          text={query.text}
         />
-        <Textbox
-          readOnly
-          value={query.text}
-        />
-        <SectionName>Translations:</SectionName>
+        <SectionName type="h4">Translations</SectionName>
         <ul>{outputItems}</ul>
-      </SavedItem>
+      </SavedWrapper>
     );
   });
 
@@ -91,49 +80,43 @@ function SavedSearches() {
   }
 
   return (
-    <div>
-      <h2>Saved Searches</h2>
+    <Wrapper>
+      <SectionName type="h2">Saved Searches</SectionName>
       <ButtonsWrapper>
-        <Button
-          onClick={saveCurrentSearch}
-          $color="cornflowerblue"
-        >
+        <Button onClick={saveCurrentSearch}>
           Save Current Search
         </Button>
         <Button
+          color="#a0f1f2"
           onClick={() => setShowSaved(!showSaved)}
-          $color="darkseagreen"
         >
           {showSaved ? 'Hide Saved Searches' : 'View Saved Searches'}
         </Button>
       </ButtonsWrapper>
       <SavedData>{showSaved ? displaySaves : null}</SavedData>
-    </div>
+    </Wrapper>
   );
 }
 
+const Wrapper = styled.section`
+  padding-top: 10px;
+`;
 const ButtonsWrapper = styled.div`
   display: flex;
-`;
-
-const Button = styled.button`
-  background: ${(props) => props.$color || '#BF4F74'};
-  border: none;
-  padding: 5px;
-  width: 50%;
-  height: 50px;
+  flex-direction: column;
 `;
 
 const SavedData = styled.div`
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
 `;
 
-const SavedItem = styled.article`
+const SavedWrapper = styled.article`
   display: flex;
   flex-direction: column;
-  border: 1px solid;
-  padding: 5px;
+  border-top: 1px solid;
+  padding: 5px 0 0 0;
 `;
 
 const Row = styled.div`
@@ -141,6 +124,7 @@ const Row = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+
 
 const Col = styled.div`
   display: flex;
@@ -150,11 +134,11 @@ const Col = styled.div`
 
 const SavedTranslation = styled.li``;
 
-const SectionName = styled.p`
-  font-family: var(--font-roboto);
-  font-size: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
+// const SectionName = styled.p`
+//   margin-top: 10px;
+//   margin-bottom: 10px;
+//   align-self: center;
+//   font-weight: 700;
+// `;
 
 export default SavedSearches;

@@ -3,6 +3,7 @@ import { AppContext } from '../AppProvider/AppProvider';
 import styled from 'styled-components';
 import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
+import Button from '../Button';
 
 function QueryInput() {
   const {
@@ -15,16 +16,13 @@ function QueryInput() {
 
   return (
     <Wrapper>
-      <Label htmlFor="input">
-        Select a language and add text to translate
-      </Label>
       <LanguageSelector
         value={queryLang}
         onChange={(event) => {
           setQueryLang(event.target.value);
         }}
       />
-      <Textbox
+      <InputTextBox
         id="input"
         placeholder="Add your text here..."
         value={queryText}
@@ -32,22 +30,19 @@ function QueryInput() {
           setQueryText(event.target.value);
         }}
       />
-
-      <ButtonsWrapper>
-        <Button
-          onClick={() => {
-            if (queryText && queryLang) {
-              setTriggerFetch(Math.random());
-            } else {
-              console.log(
-                'Please ensure you have selected an original text language, and have added some text to translate.'
-              );
-            }
-          }}
-        >
-          Run Translation
-        </Button>
-      </ButtonsWrapper>
+      <Button
+      onClick={() => {
+        if (queryText && queryLang) {
+          setTriggerFetch(Math.random());
+        } else {
+          console.log(
+            'Please ensure you have selected an original text language, and have added some text to translate.'
+          );
+        }
+      }}
+    >
+      Run Translation
+    </Button>
     </Wrapper>
   );
 }
@@ -57,23 +52,8 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const Label = styled.label`
-  font-family: var(--font-roboto);
-  text-align: center;
-  margin-bottom: 10px;
-`;
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-`;
-
-const Button = styled.button`
-  background: ${(props) => props.$color || '#BF4F74'};
-  border: none;
-  padding: 5px;
-  width: 100%;
-  height: 50px;
+const InputTextBox = styled(Textbox)`
+  background-color: var(--color-white);
 `;
 
 

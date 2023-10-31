@@ -426,32 +426,36 @@ function LanguageSelector({ ...delegated }) {
   ];
 
   return (
-    <>
-      <Select {...delegated}>
-        <option value={''}>
-          {'-->'} Select Language {'<--'}
-        </option>
-        {LANGUAGES.map(({ code, language }) => {
-          return (
-            <option
-              key={crypto.randomUUID()}
-              value={code}
-            >
-              {language}
-            </option>
-          );
-        })}
-      </Select>
-    </>
+    <Select {...delegated}>
+      <option value={''}>Select Language</option>
+      {LANGUAGES.map(({ code, language }) => {
+        return (
+          <option
+            key={crypto.randomUUID()}
+            value={code}
+          >
+            {language}
+          </option>
+        );
+      })}
+    </Select>
   );
 }
 
 const Select = styled.select`
+  appearance: none;
   font-family: var(--font-roboto);
   font-size: 20px;
   height: 40px;
-  width: 100%;
-  border: none;
+  width: 90%;
+  align-self: center;
+  text-align: center;
+  border-radius: 10rem;
+  border: 1px solid cornflowerblue;
+  /* background-color: white; */
+  margin: 0 5px 1px 5px;
+  color: var(--color-gray-900);
+  
 `;
 
 export default LanguageSelector;

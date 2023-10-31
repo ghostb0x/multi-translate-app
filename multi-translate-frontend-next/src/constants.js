@@ -33,10 +33,3 @@ export const QUERIES = {
       (min-width: ${BREAKPOINTS.tabletMin / 16}rem) and
       (max-width: ${(BREAKPOINTS.laptopMin - 1) / 16}rem)`,
 };
-
-export const FAMILIES = {
-  serif: '"Crimson Pro", Georgia, serif',
-  sansSerif:
-    '"Helvetica Neue", Helvetica, "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", sans-serif',
-  logo: 'Chomsky',
-};

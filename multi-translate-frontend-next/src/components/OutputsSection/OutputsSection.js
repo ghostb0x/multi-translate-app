@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import OutputItem from '../OutputItem/OutputItem';
 import { AppContext } from '../AppProvider/AppProvider';
+import Button from '../Button';
+import SectionName from '../SectionName';
 
 function OutputsSection() {
   const { outputs, setOutputs } = React.useContext(AppContext);
@@ -11,8 +13,8 @@ function OutputsSection() {
       ...outputs,
       {
         id: crypto.randomUUID(),
-        language: "",
-        text: "",
+        language: '',
+        text: '',
       },
     ]);
   }
@@ -52,18 +54,14 @@ function OutputsSection() {
     setOutputs(newOutputs);
   }
 
+  console.log(outputs);
+
   return (
     <SectionWrapper>
       <Top>
-        <h2>Translations:</h2>
-        <p>
-          Click &apos;Add New Translation&apos; to translate your
-          search into multiple languages
-        </p>
-
-        <AddNew onClick={addOutput}>Add New Translation</AddNew>
+        <SectionName type="h2">Translations</SectionName>
       </Top>
-      <ol>
+      <TranslationOutputs>
         {outputs.map((output) => (
           <OutputItem
             key={output.id}
@@ -75,7 +73,13 @@ function OutputsSection() {
             updateContent={updateContent}
           />
         ))}
-      </ol>
+      </TranslationOutputs>
+      <Button
+        marginTop={'0px'}
+        onClick={addOutput}
+      >
+        Add New Translation
+      </Button>
     </SectionWrapper>
   );
 }
@@ -95,12 +99,6 @@ const Top = styled.div`
   margin-bottom: 10px;
 `;
 
-const AddNew = styled.button`
-  border: none;
-  padding: 5px;
-  width: 100%;
-  height: 50px;
-  background-color: darkslateblue;
-`;
+const TranslationOutputs = styled.ul``;
 
 export default OutputsSection;

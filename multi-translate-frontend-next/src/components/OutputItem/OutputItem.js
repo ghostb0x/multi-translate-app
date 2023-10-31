@@ -77,6 +77,8 @@ const OutputWrapper = styled.li`
   flex-direction: column;
   margin-bottom: 10px;
   border: none;
+  background: var(--color-gray-300);
+  padding: 5px 0;
 `;
 
 const Top = styled.div`

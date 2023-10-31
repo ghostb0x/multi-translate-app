@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { QUERIES } from '@/constants';
 
-function Textbox({...delegated}) {
+function Textbox({ ...delegated }) {
   return <Textarea {...delegated} />;
 }
 
@@ -12,7 +12,9 @@ const Textarea = styled.textarea`
   font-family: var(--font-roboto);
   font-size: 24px;
   border: none;
-  border-top: 1px solid;
+  background: var(--color-gray-300);
+  color: var(--color-gray-900);
+  padding-left: 8px;
 
   @media ${QUERIES.tabletAndUp} {
     max-width: 50%;
