@@ -26,6 +26,8 @@ function Word({ children, type, ...delegated }) {
 
 const SectionName = styled(Word)`
   align-self: center;
+  justify-self: center;
+  text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
   

@@ -19,6 +19,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          href="/assets/images/favicon.ico"
+          sizes="any"
+        />
+      </head>
       <body className={roboto.className}>
         <StyledComponentsRegistry>
           <GlobalStyles />

@@ -451,7 +451,7 @@ const Select = styled.select`
   height: 40px;
   
   border-radius: 10rem;
-  border: 1px solid cornflowerblue;
+  border: 2px solid var(--color-primary);
 
   appearance: none;
   font-family: var(--font-roboto);
