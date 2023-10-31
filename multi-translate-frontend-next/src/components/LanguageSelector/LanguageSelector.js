@@ -293,7 +293,7 @@ function LanguageSelector({ ...delegated }) {
       code: 'pl',
     },
     {
-      language: 'Portuguese (Portugal, Brazil)',
+      language: 'Portuguese',
       code: 'pt',
     },
     {

@@ -20,7 +20,7 @@ export const WEIGHTS = {
 
 export const BREAKPOINTS = {
   tabletMin: 550,
-  laptopMin: 1100,
+  laptopMin: 900,
   desktopMin: 1500,
 };
 

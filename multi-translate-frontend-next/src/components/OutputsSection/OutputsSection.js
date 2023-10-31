@@ -4,6 +4,7 @@ import OutputItem from '../OutputItem/OutputItem';
 import { AppContext } from '../AppProvider/AppProvider';
 import Button from '../Button';
 import SectionName from '../SectionName';
+import { QUERIES } from '@/constants';
 
 function OutputsSection() {
   const { outputs, setOutputs } = React.useContext(AppContext);
@@ -98,6 +99,12 @@ const Top = styled.div`
   gap: 10px;
 `;
 
-const TranslationOutputs = styled.ul``;
+const TranslationOutputs = styled.ul`
+  @media ${QUERIES.laptopAndUp} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5px;
+  }
+`;
 
 export default OutputsSection;
