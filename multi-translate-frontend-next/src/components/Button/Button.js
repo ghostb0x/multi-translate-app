@@ -46,6 +46,7 @@ const TheButton = styled.button`
 
   @media ${QUERIES.laptopAndUp} {
     grid-area: button;
+    max-width: 800px;
   }
 `;
 

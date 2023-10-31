@@ -84,6 +84,7 @@ const OutputWrapper = styled.li`
 const Top = styled.div`
   width: 100%;
   display: flex;
+  justify-content: flex-end;
 `;
 
 export default React.memo(OutputItem);

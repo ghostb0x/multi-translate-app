@@ -6,6 +6,7 @@ import CloseButton from '../CloseButton';
 import Button from '../Button';
 import SavedItem from '../SavedItem';
 import SectionName from '../SectionName';
+import { QUERIES } from '@/constants';
 
 function SavedSearches() {
   const { saved, setSaved, saveCurrentSearch, loadSave } =
@@ -43,20 +44,20 @@ function SavedSearches() {
 
     return (
       <SavedWrapper key={id}>
-        <Col>
-          <CloseButton onClick={() => removeSave(id)} />
+        <Top>
+          <Close onClick={() => removeSave(id)} />
           <SectionName type="h3">{`Save #${index + 1}`}</SectionName>
-        </Col>
-        <Button onClick={() => loadSave(query, outputs)}>
-          Open Save in Editor
-        </Button>
+          <Button onClick={() => loadSave(query, outputs)}>
+            Open Save in Editor
+          </Button>
+        </Top>
         <SectionName type="h4">Query</SectionName>
         <SavedItem
           language={query.language}
           text={query.text}
         />
         <SectionName type="h4">Translations</SectionName>
-        <ul>{outputItems}</ul>
+        <SavedOutputs>{outputItems}</SavedOutputs>
       </SavedWrapper>
     );
   });
@@ -104,6 +105,10 @@ const Wrapper = styled.section`
 const ButtonsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media ${QUERIES.laptopAndUp} {
+    flex-direction: row;
+  }
 `;
 
 const SavedData = styled.div`
@@ -119,16 +124,25 @@ const SavedWrapper = styled.article`
   flex-direction: column;
 `;
 
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
 
-const Col = styled.div`
+const Top = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+`;
+
+const Close = styled(CloseButton)`
+  position: absolute;
+`;
+
+const SavedOutputs = styled.ul`
+  @media ${QUERIES.laptopAndUp} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5px;
+    grid-row-gap: 10px;
+  }
 `;
 
 const SavedTranslation = styled.li``;

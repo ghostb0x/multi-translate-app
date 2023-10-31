@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
+import { QUERIES } from '@/constants';
 
 function SavedItem({ language, text }) {
   return (
@@ -11,7 +12,7 @@ function SavedItem({ language, text }) {
         value={language}
         disabled
       />
-      <Textbox
+      <SavedTextbox
         readOnly
         value={text}
       />
@@ -24,11 +25,18 @@ const Wrapper = styled.article`
   background: var(--color-gray-300);
   display: flex;
   flex-direction: column;
+
+  @media ${QUERIES.laptopAndUp} {
+  }
 `;
 
 const Selector = styled(LanguageSelector)`
   color: black;
+`;
 
+const SavedTextbox = styled(Textbox)`
+  align-self: center;
+  max-width: 900px;
 `;
 
 export default SavedItem;

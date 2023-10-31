@@ -460,7 +460,8 @@ const Select = styled.select`
   color: var(--color-gray-900);
 
   @media ${QUERIES.laptopAndUp} {
-    grid-area: select;    
+    grid-area: select;
+    max-width: 800px;
   }
   
 `;
