@@ -7,7 +7,7 @@ import Link from 'next/link';
 function Header() {
   return (
     <Wrapper>
-      <LeftNav href="www.ghostb0x.dev/projects">
+      <LeftNav href="https://www.ghostb0x.dev/projects">
         <Logo
           src="/assets/images/ghostbox logo transparent bg.png"
           alt="ghostbox.dev - go to homepage"
@@ -24,20 +24,19 @@ function Header() {
 }
 
 const Wrapper = styled.header`
+  position: relative;
   margin-bottom: 10px;
   border-bottom: 1px solid;
   padding: 8px;
-
+  padding-left: 85px;
   display: flex;
   justify-content: space-around;
 `;
 
-const Logo = styled(Image)`
-  width: 40px;
-  border: 2px dotted black;
-`;
-
 const LeftNav = styled(Link)`
+  position: absolute;
+  left: 40px;
+  bottom: 25%;
   margin-right: 10px;
   display: flex;
   align-items: center;
@@ -45,6 +44,11 @@ const LeftNav = styled(Link)`
     filter: invert(58%) sepia(1) saturate(20) hue-rotate(216deg)
       brightness(0.62);
   }
+`;
+
+const Logo = styled(Image)`
+  width: 40px;
+  border: 2px dotted black;
 `;
 
 export default Header;
