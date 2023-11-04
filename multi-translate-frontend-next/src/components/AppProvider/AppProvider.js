@@ -48,21 +48,20 @@ function AppProvider({ children }) {
 
   // store saved queries in local storage when "save" button is clicked
   function saveCurrentSearch() {
+
+    // spread operator does not make a deep copy, which causes changes to outputs array
+    // to propogate to the saved state in local storage
+    let deepCopyOutputs = structuredClone(outputs);
+
     // if any output in deepCopyOutputs has id="1", update to cryptoRandom
-    const outputIndex = outputs.findIndex(
+    const outputIndex = deepCopyOutputs.findIndex(
       (output) => output.id === "1"
     );
 
     if (outputIndex !== -1) {
-      outputs[outputIndex]["id"] = crypto.randomUUID();
+      deepCopyOutputs[outputIndex]["id"] = crypto.randomUUID();
     }
     
-    // spread operator does not make a deep copy, which causes changes to outputs array
-    // to propogate to the saved state
-    let deepCopyOutputs = structuredClone(outputs);
-
-
-
     const currentSearch = {
       id: crypto.randomUUID(),
       query: {

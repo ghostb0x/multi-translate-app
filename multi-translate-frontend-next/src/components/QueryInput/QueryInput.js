@@ -35,6 +35,9 @@ function QueryInput() {
         onClick={() => {
           if (queryText && queryLang) {
             setTriggerFetch(Math.random());
+          } else if (queryText && !queryLang) {
+            setQueryLang('en');
+            setTriggerFetch(Math.random());
           } else {
             console.log(
               'Please ensure you have selected an original text language, and have added some text to translate.'
