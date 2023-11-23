@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AppContext } from '../AppProvider/AppProvider';
 import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
 import CloseButton from '../CloseButton';
+import { QueryRefContext } from '../QueryInput/useQueryRef';
 
 function OutputItem({
   id,
@@ -13,10 +13,11 @@ function OutputItem({
   updateLanguage,
   updateContent,
 }) {
-  const { queryLang, triggerFetch, setTriggerFetch, getTranslation } =
-    React.useContext(AppContext);
-
+  const { triggerFetch, setTriggerFetch, getTranslation } = React.useContext(QueryRefContext);
+  
   const [outputLang, setOutputLang] = React.useState(language);
+
+  console.log(`Output item ${id} -- ${outputLang} rendered`)
 
   const placeholderText = `Click 'Run Translation' to see output`;
   const [content, setContent] = React.useState(
@@ -25,21 +26,31 @@ function OutputItem({
 
   //Fetch translation content on Run Translation
   React.useEffect(() => {
+    // 
+    console.log("use effect ran")
+    let subscribed = true;
     try {
       let output;
 
       if (triggerFetch && outputLang) {
-        output = getTranslation(queryLang, outputLang);
+        output = getTranslation(outputLang);
         output.then((response) => {
-          const translation =
+          if (subscribed) {
+
+            const translation =
             response.data.translations[0].translatedText;
-          updateContent(id, translation);
-          setContent(translation);
-          setTriggerFetch(0);
+            updateContent(id, translation);
+            setContent(translation);
+            setTriggerFetch(0);
+          }
         });
       }
     } catch (error) {
       console.log(error);
+    }
+
+    return () => {
+      subscribed = false;
     }
   }, [triggerFetch]);
 

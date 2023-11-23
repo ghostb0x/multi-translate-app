@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { QUERIES } from '@/constants';
 
-function Textbox({ ...delegated }) {
-  return <Textarea {...delegated} />;
+function Textbox({ ...delegated }, ref) {
+  return <Textarea ref={ref} {...delegated} />;
 }
 
 const Textarea = styled.textarea`
@@ -22,4 +22,4 @@ const Textarea = styled.textarea`
   }
 `;
 
-export default Textbox;
+export default React.forwardRef(Textbox);

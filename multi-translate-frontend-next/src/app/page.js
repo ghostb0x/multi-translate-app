@@ -6,15 +6,20 @@ import QueryInput from '@/components/QueryInput';
 import OutputsSection from '@/components/OutputsSection';
 import SavedSearches from '@/components/SavedSearches';
 import Header from '@/components/Header';
+import { QueryRefProvider } from '../components/QueryInput/useQueryRef';
 
 export default function Home() {
   return (
     <AppProvider>
       <MainWrapper>
         <Header />
-        <QueryInput />
-        <OutputsSection />
-        <SavedSearches />
+        <QueryRefProvider>
+          <QueryInput />
+          <OutputsSection />
+          {/* outputs, setoutputs */}
+          <SavedSearches />
+          {/* saved, setSaved, saveCurrentSearch, loadSave */}
+        </QueryRefProvider>
       </MainWrapper>
     </AppProvider>
   );

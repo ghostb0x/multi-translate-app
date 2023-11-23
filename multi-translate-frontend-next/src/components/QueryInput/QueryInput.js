@@ -1,42 +1,43 @@
 import React from 'react';
-import { AppContext } from '../AppProvider/AppProvider';
 import styled from 'styled-components';
 import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
 import Button from '../Button';
 import { QUERIES } from '@/constants';
+import { QueryRefContext } from './useQueryRef';
 
 function QueryInput() {
-  const {
-    queryText,
-    setQueryText,
-    queryLang,
-    setQueryLang,
-    setTriggerFetch,
-  } = React.useContext(AppContext);
+  const { queryText, queryLang, setTriggerFetch } =
+    React.useContext(QueryRefContext);
+    // 
+  console.log(
+    `Input Component ${queryText.current?.value} and ${queryLang.current?.value}`
+  );
 
   return (
     <Wrapper>
       <LanguageSelector
-        value={queryLang}
+        ref={queryLang}
+        value={queryLang.current?.value}
         onChange={(event) => {
-          setQueryLang(event.target.value);
+          queryLang.current.value = event.target.value;
         }}
       />
       <InputTextBox
+        ref={queryText}
         id="input"
         placeholder="Add your text here..."
-        value={queryText}
-        onChange={(event) => {
-          setQueryText(event.target.value);
-        }}
       />
       <Button
         onClick={() => {
-          if (queryText && queryLang) {
+          if (queryText.current.value && queryLang.current.value) {
+            // 
+            console.log('first scenario');
             setTriggerFetch(Math.random());
-          } else if (queryText && !queryLang) {
-            setQueryLang('en');
+          } else if (
+            queryText.current.value && !queryLang.current.value
+          ) {
+            queryLang.current.value = 'en';
             setTriggerFetch(Math.random());
           } else {
             console.log(
