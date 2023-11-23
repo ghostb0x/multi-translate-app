@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 export const AppContext = React.createContext();
 
@@ -17,26 +16,6 @@ function AppProvider({ children }) {
     setOutputs(savedOutputs);
     setQueryText(savedQuery.text);
     setQueryLang(savedQuery.language);
-  }
-
-  async function getTranslation(input_lang, output_lang) {
-    const options = {
-      method: 'GET',
-      url: 'https://multi-translate-app-api-backend-production.up.railway.app/translation',
-      params: {
-        q: queryText,
-        source: input_lang,
-        target: output_lang,
-        format: 'text',
-      },
-    };
-
-    try {
-      const response = await axios.request(options);
-      return response.data;
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   // saved searches functionality:
@@ -87,7 +66,6 @@ function AppProvider({ children }) {
     setTriggerFetch,
     outputs,
     setOutputs,
-    getTranslation,
     saveCurrentSearch,
     saved,
     setSaved,

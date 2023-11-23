@@ -17,17 +17,13 @@ function OutputItem({
   
   const [outputLang, setOutputLang] = React.useState(language);
 
-  console.log(`Output item ${id} -- ${outputLang} rendered`)
-
-  const placeholderText = `Click 'Run Translation' to see output`;
+  const placeholderText: string = `Click 'Run Translation' to see output`;
   const [content, setContent] = React.useState(
     text ? text : placeholderText
   );
 
   //Fetch translation content on Run Translation
   React.useEffect(() => {
-    // 
-    console.log("use effect ran")
     let subscribed = true;
     try {
       let output;
@@ -54,7 +50,7 @@ function OutputItem({
     }
   }, [triggerFetch]);
 
-  const item = (
+  return (
     <OutputWrapper>
       <Top>
         <LanguageSelector
@@ -77,8 +73,6 @@ function OutputItem({
       />
     </OutputWrapper>
   );
-
-  return item;
 }
 
 const OutputWrapper = styled.li`

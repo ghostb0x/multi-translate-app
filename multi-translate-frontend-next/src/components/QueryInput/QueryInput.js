@@ -31,8 +31,6 @@ function QueryInput() {
       <Button
         onClick={() => {
           if (queryText.current.value && queryLang.current.value) {
-            // 
-            console.log('first scenario');
             setTriggerFetch(Math.random());
           } else if (
             queryText.current.value && !queryLang.current.value

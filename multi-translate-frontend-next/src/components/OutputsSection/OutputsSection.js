@@ -9,6 +9,10 @@ import { QUERIES } from '@/constants';
 function OutputsSection() {
   const { outputs, setOutputs } = React.useContext(AppContext);
 
+  
+  // testing
+  console.log(outputs);
+
   function addOutput() {
     setOutputs([
       ...outputs,
@@ -24,37 +28,28 @@ function OutputsSection() {
     setOutputs(outputs.filter((output) => output.id !== id));
   }
 
-  // these funcs modify the "outputs" objects, rather than the component UI
-  // modify updateLanguage and updateContent to use immer?
+  // these funcs modify the "outputs" state array values, rather than the component UI
   function updateLanguage(outputId, lang_code) {
-    const outputIndex = outputs.findIndex(
-      (output) => output.id === outputId
-    );
-
-    const currentOutput = outputs[outputIndex];
-
-    currentOutput['language'] = lang_code;
-
-    const newOutputs = [...outputs];
-    newOutputs.splice(outputIndex, 1, currentOutput);
+    let newOutputs = outputs.map((output) => {
+      if (output.id === outputId) {
+        output.language = lang_code;
+      }
+      return output;
+    });
 
     setOutputs(newOutputs);
   }
 
   function updateContent(outputId, text) {
-    const outputIndex = outputs.findIndex(
-      (output) => output.id === outputId
-    );
-
-    const currentOutput = outputs[outputIndex];
-    currentOutput['text'] = text;
-
-    const newOutputs = [...outputs];
-    newOutputs.splice(outputIndex, 1, currentOutput);
+    let newOutputs = outputs.map((output) => {
+      if (output.id === outputId) {
+        output.text = text;
+      }
+      return output;
+    });
 
     setOutputs(newOutputs);
   }
-
 
   return (
     <SectionWrapper>

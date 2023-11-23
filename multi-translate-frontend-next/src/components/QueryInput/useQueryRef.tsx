@@ -13,10 +13,6 @@ function useQueryRefManager() {
 
   const [triggerFetch, setTriggerFetch] = React.useState(0);
 
-    console.log(triggerFetch)
-    console.log(queryText.current?.value)
-    console.log(queryLang.current?.value)
-
   async function getTranslation(output_lang: string) {
     console.log(`API call ran with ${queryText.current?.value} Language: ${queryLang.current?.value} Output Lang: ${output_lang}`)
     const options = {
