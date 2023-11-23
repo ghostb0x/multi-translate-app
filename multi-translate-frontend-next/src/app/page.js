@@ -10,18 +10,18 @@ import { QueryRefProvider } from '../components/QueryInput/useQueryRef';
 
 export default function Home() {
   return (
-    <AppProvider>
-      <MainWrapper>
-        <Header />
-        <QueryRefProvider>
+    <MainWrapper>
+      <Header />
+      <QueryRefProvider>
+        <AppProvider>
           <QueryInput />
           <OutputsSection />
           {/* outputs, setoutputs */}
           <SavedSearches />
           {/* saved, setSaved, saveCurrentSearch, loadSave */}
-        </QueryRefProvider>
-      </MainWrapper>
-    </AppProvider>
+        </AppProvider>
+      </QueryRefProvider>
+    </MainWrapper>
   );
 }
 

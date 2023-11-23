@@ -47,7 +47,7 @@ function SavedSearches() {
         <Top>
           <Close onClick={() => removeSave(id)} />
           <SectionName type="h3">{`Save #${index + 1}`}</SectionName>
-          <Button onClick={() => loadSave(query, outputs)}>
+          <Button onClick={() => loadSave(query, structuredClone(outputs))}>
             Open Save in Editor
           </Button>
         </Top>

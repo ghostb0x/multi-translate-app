@@ -1,19 +1,24 @@
 import React from 'react';
+import { QueryRefContext } from '../QueryInput/useQueryRef';
 
 export const AppContext = React.createContext();
 
 function AppProvider({ children }) {
-  const [queryText, setQueryText] = React.useState('');
-  const [queryLang, setQueryLang] = React.useState('');
+
+  const { queryText, setQueryText, queryLang, setQueryLang } =
+  React.useContext(QueryRefContext);
+
+  console.log(queryLang)
+  console.log(queryText.current?.value)
+
   const [outputs, setOutputs] = React.useState([
     { id: '1', language: '', text: '' },
   ]);
   const [saved, setSaved] = React.useState([]);
 
-  const [triggerFetch, setTriggerFetch] = React.useState(0);
-
   function loadSave(savedQuery, savedOutputs) {
     setOutputs(savedOutputs);
+  
     setQueryText(savedQuery.text);
     setQueryLang(savedQuery.language);
   }
@@ -45,7 +50,7 @@ function AppProvider({ children }) {
       id: crypto.randomUUID(),
       query: {
         language: queryLang,
-        text: queryText,
+        text: queryText.current?.value,
       },
       outputs: deepCopyOutputs,
     };
@@ -58,12 +63,12 @@ function AppProvider({ children }) {
   }
 
   const providerValues = {
-    queryText,
-    setQueryText,
-    queryLang,
-    setQueryLang,
-    triggerFetch,
-    setTriggerFetch,
+    // queryText,
+    // setQueryText,
+    // queryLang,
+    // setQueryLang,
+    // triggerFetch,
+    // setTriggerFetch,
     outputs,
     setOutputs,
     saveCurrentSearch,

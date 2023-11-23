@@ -7,20 +7,19 @@ import { QUERIES } from '@/constants';
 import { QueryRefContext } from './useQueryRef';
 
 function QueryInput() {
-  const { queryText, queryLang, setTriggerFetch } =
+  const { queryText, queryLang, setQueryLang, setTriggerFetch } =
     React.useContext(QueryRefContext);
-    // 
+    //testing 
   console.log(
-    `Input Component ${queryText.current?.value} and ${queryLang.current?.value}`
+    `Input Component ${queryText.current?.value} and ${queryLang}`
   );
 
   return (
     <Wrapper>
       <LanguageSelector
-        ref={queryLang}
-        value={queryLang.current?.value}
+        value={queryLang}
         onChange={(event) => {
-          queryLang.current.value = event.target.value;
+          setQueryLang(event.target.value);
         }}
       />
       <InputTextBox
@@ -30,12 +29,15 @@ function QueryInput() {
       />
       <Button
         onClick={() => {
-          if (queryText.current.value && queryLang.current.value) {
+          if (queryText.current.value && queryLang) {
+            console.log("Scenario 1")
+            console.log(queryLang)
             setTriggerFetch(Math.random());
           } else if (
             queryText.current.value && !queryLang.current.value
           ) {
-            queryLang.current.value = 'en';
+            console.log("Scenario 2")
+            setQueryLang('en');
             setTriggerFetch(Math.random());
           } else {
             console.log(

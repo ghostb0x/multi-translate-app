@@ -22,6 +22,8 @@ function OutputItem({
     text ? text : placeholderText
   );
 
+  console.log("Item Rerendered")
+
   //Fetch translation content on Run Translation
   React.useEffect(() => {
     let subscribed = true;
