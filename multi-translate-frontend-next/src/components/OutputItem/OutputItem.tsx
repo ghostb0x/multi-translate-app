@@ -5,6 +5,18 @@ import Textbox from '../Textbox';
 import CloseButton from '../CloseButton';
 import { QueryRefContext } from '../QueryInput/useQueryRef';
 
+
+type IdType = ReturnType<typeof crypto.randomUUID> | string;
+
+export interface OutputItemProps {
+  id: IdType;
+  language: string;
+  text: string;
+  removeOutput: (id: IdType) => void; 
+  updateLanguage: (outputId: IdType, lang_code: string) => void;
+  updateContent: (outputId: IdType, text: string) => void;
+}
+
 function OutputItem({
   id,
   language,
@@ -12,7 +24,7 @@ function OutputItem({
   removeOutput,
   updateLanguage,
   updateContent,
-}) {
+}: OutputItemProps) {
   const { triggerFetch, setTriggerFetch, getTranslation } = React.useContext(QueryRefContext);
   
   const [outputLang, setOutputLang] = React.useState(language);
@@ -57,7 +69,7 @@ function OutputItem({
       <Top>
         <LanguageSelector
           value={outputLang}
-          onChange={(event) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             updateLanguage(id, event.target.value);
             setOutputLang(event.target.value);
           }}

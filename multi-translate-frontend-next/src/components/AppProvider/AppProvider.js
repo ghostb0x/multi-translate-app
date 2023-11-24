@@ -8,6 +8,7 @@ function AppProvider({ children }) {
   const { queryText, setQueryText, queryLang, setQueryLang } =
   React.useContext(QueryRefContext);
 
+  // testing 
   console.log(queryLang)
   console.log(queryText.current?.value)
 
@@ -18,7 +19,6 @@ function AppProvider({ children }) {
 
   function loadSave(savedQuery, savedOutputs) {
     setOutputs(savedOutputs);
-  
     setQueryText(savedQuery.text);
     setQueryLang(savedQuery.language);
   }
@@ -63,12 +63,6 @@ function AppProvider({ children }) {
   }
 
   const providerValues = {
-    // queryText,
-    // setQueryText,
-    // queryLang,
-    // setQueryLang,
-    // triggerFetch,
-    // setTriggerFetch,
     outputs,
     setOutputs,
     saveCurrentSearch,
