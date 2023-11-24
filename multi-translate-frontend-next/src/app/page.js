@@ -1,5 +1,4 @@
 'use client';
-import styles from './page.module.css';
 import AppProvider from '@/components/AppProvider';
 import styled from 'styled-components';
 import QueryInput from '@/components/QueryInput';

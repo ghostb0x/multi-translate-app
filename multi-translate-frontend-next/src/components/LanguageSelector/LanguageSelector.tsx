@@ -2,7 +2,7 @@ import { QUERIES } from '@/constants';
 import React from 'react';
 import styled from 'styled-components';
 
-function LanguageSelector({ ...delegated }, ref) {
+function LanguageSelector({ ...delegated }) {
   const LANGUAGES = [
     {
       language: 'English',
@@ -427,7 +427,7 @@ function LanguageSelector({ ...delegated }, ref) {
   ];
 
   return (
-    <Select ref={ref} {...delegated}>
+    <Select {...delegated}>
       <option value={''}>Select Language</option>
       {LANGUAGES.map(({ code, language }) => {
         return (
@@ -466,4 +466,4 @@ const Select = styled.select`
   
 `;
 
-export default React.forwardRef(LanguageSelector);
+export default LanguageSelector;

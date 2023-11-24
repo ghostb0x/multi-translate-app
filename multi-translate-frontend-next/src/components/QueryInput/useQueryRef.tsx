@@ -7,12 +7,12 @@ export const QueryRefContext = createContext<ManagerType>(
   {} as ManagerType
 );
 
-function useQueryRefManager() {
-  const queryText = React.useRef<HTMLInputElement>(null);
+function useQueryRefManager(){
+  const queryText = React.useRef<HTMLTextAreaElement>(null);
 
   // returned to using useState for lang bc select input behaves
   // very differently from textArea - ref works well for queryText
-  const [queryLang, setQueryLang] = React.useState('');
+  const [queryLang, setQueryLang] = React.useState<string>('');
 
   function setQueryText(text: string) {
     if (queryText.current) {
@@ -20,7 +20,7 @@ function useQueryRefManager() {
     }
   }
 
-  const [triggerFetch, setTriggerFetch] = React.useState(0);
+  const [triggerFetch, setTriggerFetch] = React.useState<number>(0);
 
   async function getTranslation(output_lang: string) {
     console.log(

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { QUERIES } from '@/constants';
 
-function Textbox({ ...delegated }, ref) {
+function Textbox({ ...delegated }, ref: React.ForwardedRef<HTMLTextAreaElement>) {
   return <Textarea ref={ref} {...delegated} />;
 }
 

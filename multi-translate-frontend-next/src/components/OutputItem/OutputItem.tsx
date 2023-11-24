@@ -69,7 +69,7 @@ function OutputItem({
       <Top>
         <LanguageSelector
           value={outputLang}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
             updateLanguage(id, event.target.value);
             setOutputLang(event.target.value);
           }}
