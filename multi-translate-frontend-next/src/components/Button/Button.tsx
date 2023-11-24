@@ -2,20 +2,19 @@ import { QUERIES } from '@/constants';
 import React from 'react';
 import styled from 'styled-components';
 
+interface ButtonProps {
+  children: React.ReactNode;
+  color?: string;
+}
+
 function Button({
   children,
-  className,
   color,
-  width,
-  marginTop,
   ...delegated
-}) {
+}: ButtonProps) {
   return (
     <TheButton
-      className={className}
-      $color={color}
-      $width={width}
-      $marginTop={marginTop}
+      color={color}
       {...delegated}
     >
       {children}
@@ -26,11 +25,11 @@ function Button({
 const TheButton = styled.button`
   align-self: center;
   
-  margin-top: ${(props) => props.$marginTop || '10px'};
+  margin-top: 10px;
   margin-left: 5px;
   margin-right: 5px;
   
-  width: ${(props) => props.$width || '90%'};
+  width: 90%;
   border: none;
   border-radius: 10rem;
   padding: 0.5rem 3rem;
@@ -39,7 +38,7 @@ const TheButton = styled.button`
   justify-content: center;
   align-items: center;
 
-  background: ${(props) => props.$color || `var(--color-primary)`};
+  background: ${(props) => props.color || `var(--color-primary)`};
   text-align: center;
   font-family: var(--font-roboto);
   font-size: 1.3rem;

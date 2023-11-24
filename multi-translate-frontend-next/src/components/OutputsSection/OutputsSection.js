@@ -70,7 +70,6 @@ function OutputsSection() {
         ))}
       </TranslationOutputs>
       <Button
-        marginTop={'0px'}
         onClick={addOutput}
       >
         Add New Translation
@@ -95,6 +94,7 @@ const Top = styled.div`
 `;
 
 const TranslationOutputs = styled.ul`
+  margin-bottom: -10px;
   @media ${QUERIES.laptopAndUp} {
     display: grid;
     grid-template-columns: 1fr 1fr;
