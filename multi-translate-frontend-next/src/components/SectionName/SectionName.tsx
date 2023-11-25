@@ -1,8 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Word({ children, type, ...delegated }) {
-  let Tag;
+
+interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  children: React.ReactNode;
+  type: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
+}
+
+
+export const Word = ({
+  children,
+  type = "p",
+  ...delegated
+}: HeadingProps) => {
+  let Tag: HeadingProps["type"];
   switch (type) {
     case 'h1':
       Tag = 'h1';
@@ -21,8 +32,8 @@ function Word({ children, type, ...delegated }) {
       break;
   }
 
-  return <Tag {...delegated}>{children}</Tag>;
-}
+  return (<Tag {...delegated}>{children}</Tag>)
+};
 
 const SectionName = styled(Word)`
   align-self: center;
@@ -30,7 +41,7 @@ const SectionName = styled(Word)`
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
-  
+
   font-weight: 700;
   font-size: 1.1rem;
   text-align: center;
