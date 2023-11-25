@@ -15,7 +15,7 @@ function LoadingSpinner({
         '--speed': `${speed}ms`,
         width: size,
         height: size,
-      }}
+      } as React.CSSProperties}
     >
       <Loader color={color} size={size} />
     </Spinner>

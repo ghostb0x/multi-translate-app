@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
 import CloseButton from '../CloseButton';
-import { QueryRefContext } from '../QueryInput/useQueryRef';
-
+import { useQueryRefContext } from '../QueryInput/useQueryRef';
 
 type IdType = ReturnType<typeof crypto.randomUUID> | string;
 
@@ -12,7 +11,7 @@ export interface OutputItemProps {
   id: IdType;
   language: string;
   text: string;
-  removeOutput: (id: IdType) => void; 
+  removeOutput: (id: IdType) => void;
   updateLanguage: (outputId: IdType, lang_code: string) => void;
   updateContent: (outputId: IdType, text: string) => void;
 }
@@ -25,8 +24,9 @@ function OutputItem({
   updateLanguage,
   updateContent,
 }: OutputItemProps) {
-  const { triggerFetch, setTriggerFetch, getTranslation } = React.useContext(QueryRefContext);
-  
+  const { triggerFetch, setTriggerFetch, getTranslation } =
+    useQueryRefContext();
+
   const [outputLang, setOutputLang] = React.useState(language);
 
   const placeholderText: string = `Click 'Run Translation' to see output`;
@@ -34,33 +34,30 @@ function OutputItem({
     text ? text : placeholderText
   );
 
-  console.log("Item Rerendered")
+  // testing
+  console.log(
+    `Output Item Rendered - ID: ${id} - Lang: ${
+      outputLang ?? 'none'
+    } Text: ${content ?? 'none'}`
+  );
 
   //Fetch translation content on Run Translation
   React.useEffect(() => {
-    let subscribed = true;
     try {
       let output;
 
       if (triggerFetch && outputLang) {
         output = getTranslation(outputLang);
         output.then((response) => {
-          if (subscribed) {
-
-            const translation =
+          const translation =
             response.data.translations[0].translatedText;
-            updateContent(id, translation);
-            setContent(translation);
-            setTriggerFetch(0);
-          }
+          updateContent(id, translation);
+          setContent(translation);
+          setTriggerFetch(0);
         });
       }
     } catch (error) {
       console.log(error);
-    }
-
-    return () => {
-      subscribed = false;
     }
   }, [triggerFetch]);
 
@@ -94,7 +91,7 @@ const OutputWrapper = styled.li`
   margin-bottom: 10px;
   border: none;
   padding: 5px 0;
-  
+
   display: flex;
   flex-direction: column;
   background: var(--color-gray-300);

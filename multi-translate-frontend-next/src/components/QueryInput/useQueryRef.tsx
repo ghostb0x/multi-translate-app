@@ -3,9 +3,7 @@ import axios from 'axios';
 
 type ManagerType = ReturnType<typeof useQueryRefManager>;
 
-export const QueryRefContext = createContext<ManagerType>(
-  {} as ManagerType
-);
+export const QueryRefContext = createContext<ManagerType | null>(null);
 
 function useQueryRefManager(){
   const queryText = React.useRef<HTMLTextAreaElement>(null);
@@ -67,3 +65,14 @@ export function QueryRefProvider({
     </QueryRefContext.Provider>
   );
 }
+
+
+export function useQueryRefContext() {
+  const contextValues = React.useContext(QueryRefContext);
+  if (!contextValues) {
+    throw "You need to be within QueryRefProvider to use useQueryRefContext"
+  }
+  return contextValues;
+
+
+} 

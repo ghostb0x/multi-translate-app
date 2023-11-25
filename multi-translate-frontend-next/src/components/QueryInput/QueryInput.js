@@ -40,7 +40,7 @@ function QueryInput() {
             setQueryLang('en');
             setTriggerFetch(Math.random());
           } else {
-            console.log(
+            window.alert(
               'Please ensure you have selected an original text language, and have added some text to translate.'
             );
           }
