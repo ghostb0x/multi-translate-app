@@ -4,11 +4,13 @@ import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
 import Button from '../Button';
 import { QUERIES } from '@/constants';
-import { QueryRefContext } from './useQueryRef';
+import { useQueryRefContext } from './useQueryRef';
+import RunTranslateButton from '../RunTranslateButton';
 
 function QueryInput() {
   const { queryText, queryLang, setQueryLang, setTriggerFetch } =
-    React.useContext(QueryRefContext);
+  useQueryRefContext();
+
     //testing 
   console.log(
     `Input Component ${queryText.current?.value} and ${queryLang}`
@@ -27,14 +29,14 @@ function QueryInput() {
         id="input"
         placeholder="Add your text here..."
       />
-      <Button
+      <RunTranslateButton
         onClick={() => {
-          if (queryText.current.value && queryLang) {
+          if (queryText.current?.value && queryLang) {
             console.log("Scenario 1")
             console.log(queryLang)
             setTriggerFetch(Math.random());
           } else if (
-            queryText.current.value && !queryLang.current.value
+            queryText.current?.value && !queryLang
           ) {
             console.log("Scenario 2")
             setQueryLang('en');
@@ -45,9 +47,7 @@ function QueryInput() {
             );
           }
         }}
-      >
-        Run Translation
-      </Button>
+      />
     </Wrapper>
   );
 }

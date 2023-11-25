@@ -5,6 +5,7 @@ import styled from 'styled-components';
 interface ButtonProps {
   children: React.ReactNode;
   color?: string;
+  onClick?: () => unknown;
 }
 
 function Button({
