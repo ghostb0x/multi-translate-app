@@ -21,9 +21,10 @@ function useQueryRefManager(){
   const [triggerFetch, setTriggerFetch] = React.useState<number>(0);
 
   async function getTranslation(output_lang: string) {
-    console.log(
-      `API call ran with ${queryText.current?.value} Language: ${queryLang} Output Lang: ${output_lang}`
-    );
+    // //testing
+    // console.log(
+    //   `API call ran with ${queryText.current?.value} Language: ${queryLang} Output Lang: ${output_lang}`
+    // );
     const options = {
       method: 'GET',
       url: 'https://multi-translate-app-api-backend-production.up.railway.app/translation',
@@ -73,6 +74,4 @@ export function useQueryRefContext() {
     throw "You need to be within QueryRefProvider to use useQueryRefContext"
   }
   return contextValues;
-
-
 } 

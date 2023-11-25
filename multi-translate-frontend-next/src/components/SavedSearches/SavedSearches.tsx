@@ -1,16 +1,17 @@
 import React from 'react';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import { AppContext } from '../AppProvider/AppProvider';
+import { useOutputsContext } from '../AppProvider/AppProvider';
 import styled from 'styled-components';
 import CloseButton from '../CloseButton';
 import Button from '../Button';
 import SavedItem from '../SavedItem';
 import SectionName from '../SectionName';
 import { QUERIES } from '@/constants';
+import { IdType } from '@/lib/types';
 
 function SavedSearches() {
   const { saved, setSaved, saveCurrentSearch, loadSave } =
-    React.useContext(AppContext);
+  useOutputsContext();
 
   const [showSaved, setShowSaved] = React.useState(false);
 
@@ -71,7 +72,7 @@ function SavedSearches() {
       savedItems
     );
 
-  function removeSave(id) {
+  function removeSave(id: IdType) {
     let newSaves = [...saved];
     newSaves = newSaves.filter((save) => save.id !== id);
 
@@ -123,7 +124,6 @@ const SavedWrapper = styled.article`
   display: flex;
   flex-direction: column;
 `;
-
 
 const Top = styled.div`
   position: relative;

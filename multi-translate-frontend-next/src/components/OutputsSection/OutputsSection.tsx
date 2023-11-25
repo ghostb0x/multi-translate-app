@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import OutputItem from '../OutputItem/OutputItem';
-import { AppContext } from '../AppProvider/AppProvider';
+import { useOutputsContext } from '../AppProvider/AppProvider';
 import Button from '../Button';
 import SectionName from '../SectionName';
 import { QUERIES } from '@/constants';
 import { IdType, OutputType } from '@/lib/types';
 
 function OutputsSection() {
-  const { outputs, setOutputs } = React.useContext(AppContext);
+  const { outputs, setOutputs } = useOutputsContext();
   
-  // testing
-  console.log(outputs);
+  // // testing
+  // console.log(outputs);
 
   function addOutput() {
     setOutputs([

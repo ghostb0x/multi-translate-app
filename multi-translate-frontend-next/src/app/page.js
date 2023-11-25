@@ -1,5 +1,5 @@
 'use client';
-import AppProvider from '@/components/AppProvider';
+import { OutputsProvider } from '@/components/AppProvider';
 import styled from 'styled-components';
 import QueryInput from '@/components/QueryInput';
 import OutputsSection from '@/components/OutputsSection';
@@ -12,13 +12,11 @@ export default function Home() {
     <MainWrapper>
       <Header />
       <QueryRefProvider>
-        <AppProvider>
+        <OutputsProvider>
           <QueryInput />
           <OutputsSection />
-          {/* outputs, setoutputs */}
           <SavedSearches />
-          {/* saved, setSaved, saveCurrentSearch, loadSave */}
-        </AppProvider>
+        </OutputsProvider>
       </QueryRefProvider>
     </MainWrapper>
   );

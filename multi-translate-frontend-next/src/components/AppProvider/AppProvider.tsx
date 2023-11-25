@@ -1,23 +1,28 @@
 import React from 'react';
-import { QueryRefContext } from '../QueryInput/useQueryRef';
+import { useQueryRefContext } from '../QueryInput/useQueryRef';
+import { OutputType, SavedItemType } from '@/lib/types';
 
-export const AppContext = React.createContext();
+type OutputsProviderValueType = ReturnType<
+  typeof useOutputContextManager
+>;
 
-function AppProvider({ children }) {
+export const OutputsContext =
+  React.createContext<OutputsProviderValueType | null>(null);
 
+function useOutputContextManager() {
   const { queryText, setQueryText, queryLang, setQueryLang } =
-  React.useContext(QueryRefContext);
+    useQueryRefContext();
 
-  // testing 
-  console.log(queryLang)
-  console.log(queryText.current?.value)
 
-  const [outputs, setOutputs] = React.useState([
+  const [outputs, setOutputs] = React.useState<OutputType[]>([
     { id: '1', language: '', text: '' },
   ]);
-  const [saved, setSaved] = React.useState([]);
+  const [saved, setSaved] = React.useState<SavedItemType[]>([]);
 
-  function loadSave(savedQuery, savedOutputs) {
+  function loadSave(
+    savedQuery: SavedItemType['query'],
+    savedOutputs: SavedItemType['outputs']
+  ) {
     setOutputs(savedOutputs);
     setQueryText(savedQuery.text);
     setQueryLang(savedQuery.language);
@@ -32,25 +37,24 @@ function AppProvider({ children }) {
 
   // store saved queries in local storage when "save" button is clicked
   function saveCurrentSearch() {
-
     // spread operator does not make a deep copy, which causes changes to outputs array
     // to propogate to the saved state in local storage
     let deepCopyOutputs = structuredClone(outputs);
 
     // if any output in deepCopyOutputs has id="1", update to cryptoRandom
     const outputIndex = deepCopyOutputs.findIndex(
-      (output) => output.id === "1"
+      (output) => output.id === '1'
     );
 
     if (outputIndex !== -1) {
-      deepCopyOutputs[outputIndex]["id"] = crypto.randomUUID();
+      deepCopyOutputs[outputIndex]['id'] = crypto.randomUUID();
     }
-    
+
     const currentSearch = {
       id: crypto.randomUUID(),
       query: {
         language: queryLang,
-        text: queryText.current?.value,
+        text: queryText.current!.value,
       },
       outputs: deepCopyOutputs,
     };
@@ -62,7 +66,7 @@ function AppProvider({ children }) {
     setSaved(newSaves);
   }
 
-  const providerValues = {
+  return {
     outputs,
     setOutputs,
     saveCurrentSearch,
@@ -70,12 +74,24 @@ function AppProvider({ children }) {
     setSaved,
     loadSave,
   };
+}
 
+export function OutputsProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}): React.ReactNode {
   return (
-    <AppContext.Provider value={providerValues}>
+    <OutputsContext.Provider value={useOutputContextManager()}>
       {children}
-    </AppContext.Provider>
+    </OutputsContext.Provider>
   );
 }
 
-export default AppProvider;
+export function useOutputsContext() {
+  const contextValues = React.useContext(OutputsContext);
+  if (!contextValues) {
+    throw 'You need to be within OutputsProvider to use useOutputsContext';
+  }
+  return contextValues;
+}

@@ -5,3 +5,12 @@ export interface OutputType {
   language: string;
   text: string;
 }
+
+export interface SavedItemType {
+  id: IdType;
+  query: {
+    language: string;
+    text: string;
+  };
+  outputs: OutputType[];
+}

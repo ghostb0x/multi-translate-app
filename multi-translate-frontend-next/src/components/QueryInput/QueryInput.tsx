@@ -10,10 +10,10 @@ function QueryInput() {
   const { queryText, queryLang, setQueryLang, setTriggerFetch } =
   useQueryRefContext();
 
-    //testing 
-  console.log(
-    `Input Component ${queryText.current?.value} and ${queryLang}`
-  );
+  //   //testing 
+  // console.log(
+  //   `Input Component ${queryText.current?.value} and ${queryLang}`
+  // );
 
   return (
     <Wrapper>
@@ -31,13 +31,15 @@ function QueryInput() {
       <RunTranslateButton
         onClick={() => {
           if (queryText.current?.value && queryLang) {
-            console.log("Scenario 1")
-            console.log(queryLang)
+            // // testing
+            // console.log("Scenario 1")
+            // console.log(queryLang)
             setTriggerFetch(Math.random());
           } else if (
             queryText.current?.value && !queryLang
           ) {
-            console.log("Scenario 2")
+            // // testing
+            // console.log("Scenario 2")
             setQueryLang('en');
             setTriggerFetch(Math.random());
           } else {

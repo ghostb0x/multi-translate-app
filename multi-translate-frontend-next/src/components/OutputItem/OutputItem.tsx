@@ -33,12 +33,12 @@ function OutputItem({
     text ? text : placeholderText
   );
 
-  // testing
-  console.log(
-    `Output Item Rendered - ID: ${id} - Lang: ${
-      outputLang ?? 'none'
-    } Text: ${content ?? 'none'}`
-  );
+  // // testing
+  // console.log(
+  //   `Output Item Rendered - ID: ${id} - Lang: ${
+  //     outputLang ?? 'none'
+  //   } Text: ${content ?? 'none'}`
+  // );
 
   //Fetch translation content on Run Translation
   React.useEffect(() => {

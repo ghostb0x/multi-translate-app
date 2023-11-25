@@ -4,7 +4,12 @@ import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
 import { QUERIES } from '@/constants';
 
-function SavedItem({ language, text }) {
+interface SavedItemProps {
+  language: string;
+  text: string;
+}
+
+function SavedItem({ language, text }: SavedItemProps) {
   return (
     <Wrapper>
       <Selector

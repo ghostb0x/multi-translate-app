@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from '../Button';
-import { AppContext } from '../AppProvider/AppProvider';
+import { useOutputsContext } from '../AppProvider/AppProvider';
 
 
 interface RunButtonProps {
@@ -8,7 +8,7 @@ interface RunButtonProps {
 }
 
 function RunTranslateButton({onClick}: RunButtonProps) {
-  const { outputs } = React.useContext(AppContext);
+  const { outputs } = useOutputsContext();
 
   // hide run translate button if there are no outputs
   if (!outputs.length) {
