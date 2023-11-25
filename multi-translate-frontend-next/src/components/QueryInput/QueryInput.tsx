@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
-import Button from '../Button';
+import RunTranslateButton from '../RunTranslateButton';
 import { QUERIES } from '@/constants';
 import { useQueryRefContext } from './useQueryRef';
-import RunTranslateButton from '../RunTranslateButton';
 
 function QueryInput() {
   const { queryText, queryLang, setQueryLang, setTriggerFetch } =
@@ -20,7 +19,7 @@ function QueryInput() {
     <Wrapper>
       <LanguageSelector
         value={queryLang}
-        onChange={(event) => {
+        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
           setQueryLang(event.target.value);
         }}
       />

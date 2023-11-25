@@ -4,10 +4,9 @@ import LanguageSelector from '../LanguageSelector';
 import Textbox from '../Textbox';
 import CloseButton from '../CloseButton';
 import { useQueryRefContext } from '../QueryInput/useQueryRef';
+import { IdType } from '@/lib/types';
 
-type IdType = ReturnType<typeof crypto.randomUUID> | string;
-
-export interface OutputItemProps {
+interface OutputItemProps {
   id: IdType;
   language: string;
   text: string;

@@ -5,10 +5,10 @@ import { AppContext } from '../AppProvider/AppProvider';
 import Button from '../Button';
 import SectionName from '../SectionName';
 import { QUERIES } from '@/constants';
+import { IdType, OutputType } from '@/lib/types';
 
 function OutputsSection() {
   const { outputs, setOutputs } = React.useContext(AppContext);
-
   
   // testing
   console.log(outputs);
@@ -24,13 +24,13 @@ function OutputsSection() {
     ]);
   }
 
-  function removeOutput(id) {
-    setOutputs(outputs.filter((output) => output.id !== id));
+  function removeOutput(id: IdType) {
+    setOutputs(outputs.filter((output: OutputType) => output.id !== id));
   }
 
   // these funcs modify the "outputs" state array values, rather than the component UI
-  function updateLanguage(outputId, lang_code) {
-    let newOutputs = outputs.map((output) => {
+  function updateLanguage(outputId: IdType, lang_code: string) {
+    let newOutputs = outputs.map((output: OutputType) => {
       if (output.id === outputId) {
         output.language = lang_code;
       }
@@ -40,8 +40,8 @@ function OutputsSection() {
     setOutputs(newOutputs);
   }
 
-  function updateContent(outputId, text) {
-    let newOutputs = outputs.map((output) => {
+  function updateContent(outputId: IdType, text: string) {
+    let newOutputs = outputs.map((output: OutputType) => {
       if (output.id === outputId) {
         output.text = text;
       }
@@ -57,7 +57,7 @@ function OutputsSection() {
         <SectionName type="h2">Translations</SectionName>
       </Top>
       <TranslationOutputs>
-        {outputs.map((output) => (
+        {outputs.map((output: OutputType) => (
           <OutputItem
             key={output.id}
             id={output.id}
