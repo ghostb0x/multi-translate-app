@@ -1,86 +1,41 @@
-# Getting Started with Create React App
+Multi-Language Translations: Translate text from one language into any number of other languages!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Powered by the Google Translate API, you can select multiple destination languages for simultaneous translation.
 
-It was then updated to include an updated package.json file which includes the script for
-[Josh Comeau's npm new-component package](https://github.com/joshwcomeau/new-component)
+# Project Purpose and Goal
 
-And initializes the src folder and starting files to align with that structure.
+This was one of my earliest attempts at a completely solo React app (i.e. no designs or structured guidance whatsoever), and my goal was to build an app that served a personal interest, but which I had not seen in another app.
 
-Additional starter files are included:
-- constants.js includes some standardized viewport breakpoints, colors, and font families
-    - local font files are included as well - these and the default colors were taken from a previous project. Replace these as needed
-- starter files for use with styled-components, including a GlobalStyles component that includes meyerweb's CSS Reset styles
-    - note that the GlobalStyles component is imported into index.js below the App component
+I thought of the idea while traveling in South America in 2022-23. 
 
+In an effort to learn Portuguese while reinforcing my knowledge of Spanish, whenever I would look up an English word or phrase in one language, I would subsequently translate it into the other. 
 
-## Available Scripts
+An app like this seemed useful to me as a learner to see the Spanish and Portuguese side by side, and would save me the additional step of translating into the second language in a separate transaction.
 
-In the project directory, you can run:
+# Main Challenge: Handling Concurrent API Calls
 
-### `npm run new-component YourComponentName`
+This app uses Google Translate’s API via a third-party endpoint on RapidAPI (I used this API because it has a free tier, whereas the official Google Translate API is never free for developers).
 
-Runs the new-component script to create a folder with the component name under src, as well as includes starting index.js for export and componentName.js files. This is part of Josh's opinionated file structuring 
+The API endpoint I’m using does not support batch calls or multiple input strings, so each request must be an independent API call. 
 
-### `npm start`
+## Solution: A Single State Var to Trigger API Calls
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To avoid quickly burning through my free-tier API call limit, I couldn’t trigger the API calls `onChange` of the input field, as the real Google Translate app does. As such, I needed a manual trigger that would translate into all output languages simultaneously.  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- I created a state variable within a React Context provider, and imported it into the input query component and all translation output components created by the user. 
 
-### `npm test`
+- When that variable changes, it triggers the API call from each output component, which returns a Promise with the translated text. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I chose this approach because it seemed more manageable than having a central function where all API calls are sent from, and which must then parse any responses and deliver them to the correct output component for display.
 
-### `npm run build`
+With my approach, each output component is independent, but driven by the shared trigger via Context.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Lessons Learned
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Intro to Backend Basics - Express.js and Environment Variables
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+My React education prior to this included nothing about handling API credential security on the front end. I realized this would be an issue after building out the API logic, and considering that my credentials were hard coded into my API calling function, which would be exposed to the client.
 
-### `npm run eject`
+Looking up how to resolve this security concern led me to learning about .env variables, but also how that was insufficient if running on the front end. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Finally, I found a tutorial on how to resolve this by creating an Express.js server as a simple backend to handle incoming requests, and how to set environment variables with the hosting provider (in my case, Railway) to keep credentials safe from inspection on the client side.
