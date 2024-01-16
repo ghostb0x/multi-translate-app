@@ -121,7 +121,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/lib/registry.ts", "src/constants.ts"  ],
+, "src/lib/registry.ts", "src/constants.ts", "next.config.js"  ],
   "exclude": [
     "node_modules"
   ]
