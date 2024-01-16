@@ -16,7 +16,11 @@ export const metadata = {
     'Translate any query into multiple languages and view the results simultaneously. App built with Next.js 13',
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>
