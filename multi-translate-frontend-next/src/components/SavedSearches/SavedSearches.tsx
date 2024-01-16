@@ -7,7 +7,7 @@ import Button from '../Button';
 import SavedItem from '../SavedItem';
 import SectionName from '../SectionName';
 import { QUERIES } from '@/constants';
-import { IdType } from '@/lib/types';
+import { IdType, SavedItemType } from '@/lib/types';
 
 function SavedSearches() {
   const { saved, setSaved, saveCurrentSearch, loadSave } =
@@ -19,7 +19,7 @@ function SavedSearches() {
   React.useEffect(() => {
     const stored = window.localStorage.getItem('saved-searches');
     if (stored) {
-      setSaved(JSON.parse(stored));
+      setSaved(JSON.parse(stored) as SavedItemType[]);
     } else {
       setSaved([]);
     }

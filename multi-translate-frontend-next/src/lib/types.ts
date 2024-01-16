@@ -1,4 +1,4 @@
-export type IdType = ReturnType<typeof crypto.randomUUID> | string;
+export type IdType = ReturnType<typeof crypto.randomUUID>;
 
 export interface OutputType {
   id: IdType;

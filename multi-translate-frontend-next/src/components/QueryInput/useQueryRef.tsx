@@ -3,6 +3,10 @@ import axios from 'axios';
 
 type ManagerType = ReturnType<typeof useQueryRefManager>;
 
+interface TranslationData {
+  data: Record<"translations", [Record<"translatedText", string>]>;
+}
+
 export const QueryRefContext = createContext<ManagerType | null>(null);
 
 function useQueryRefManager(){
@@ -21,13 +25,10 @@ function useQueryRefManager(){
   const [triggerFetch, setTriggerFetch] = React.useState<number>(0);
 
   async function getTranslation(output_lang: string) {
-    // //testing
-    // console.log(
-    //   `API call ran with ${queryText.current?.value} Language: ${queryLang} Output Lang: ${output_lang}`
-    // );
+
     const options = {
       method: 'GET',
-      url: 'https://multi-translate-app-api-backend-production.up.railway.app/translation',
+      url: 'api/translation',
       params: {
         q: queryText.current?.value,
         source: queryLang,
@@ -37,7 +38,7 @@ function useQueryRefManager(){
     };
 
     try {
-      const response = await axios.request(options);
+      const response = await axios.request<TranslationData>(options);
       return response.data;
     } catch (error) {
       console.error(error);

@@ -1,6 +1,6 @@
 'use client';
 import { createGlobalStyle } from 'styled-components';
-import { COLORS, WEIGHTS, FAMILIES } from '../constants';
+import { COLORS, WEIGHTS } from '../constants';
 
 const GlobalStyles = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/

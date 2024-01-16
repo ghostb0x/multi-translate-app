@@ -47,12 +47,16 @@ function OutputItem({
 
       if (triggerFetch && outputLang) {
         output = getTranslation(outputLang);
-        output.then((response) => {
-          const translation =
-            response.data.translations[0].translatedText;
-          updateContent(id, translation);
-          setContent(translation);
-          setTriggerFetch(0);
+        void output.then((response) => {         
+          if (response) {
+            // testing
+            console.log(response);
+            const translation =
+              response.data.translations[0].translatedText;
+            updateContent(id, translation);
+            setContent(translation);
+            setTriggerFetch(0);
+          }
         });
       }
     } catch (error) {

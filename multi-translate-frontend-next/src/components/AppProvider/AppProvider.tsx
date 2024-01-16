@@ -39,7 +39,7 @@ function useOutputContextManager() {
   function saveCurrentSearch() {
     // spread operator does not make a deep copy, which causes changes to outputs array
     // to propogate to the saved state in local storage
-    let deepCopyOutputs = structuredClone(outputs);
+    const deepCopyOutputs = structuredClone(outputs);
 
     // if any output in deepCopyOutputs has id="1", update to cryptoRandom
     const outputIndex = deepCopyOutputs.findIndex(

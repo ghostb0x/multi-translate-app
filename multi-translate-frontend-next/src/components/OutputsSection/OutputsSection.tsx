@@ -30,7 +30,7 @@ function OutputsSection() {
 
   // these funcs modify the "outputs" state array values, rather than the component UI
   function updateLanguage(outputId: IdType, lang_code: string) {
-    let newOutputs = outputs.map((output: OutputType) => {
+    const newOutputs = outputs.map((output: OutputType) => {
       if (output.id === outputId) {
         output.language = lang_code;
       }
@@ -41,7 +41,7 @@ function OutputsSection() {
   }
 
   function updateContent(outputId: IdType, text: string) {
-    let newOutputs = outputs.map((output: OutputType) => {
+    const newOutputs = outputs.map((output: OutputType) => {
       if (output.id === outputId) {
         output.text = text;
       }
